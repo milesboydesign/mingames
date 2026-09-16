@@ -1,0 +1,2912 @@
+<!DOCTYPE html>
+<html lang="en-US" prefix="og: https://ogp.me/ns#" class="no-js">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+            <script>
+        // Global WordPress object error prevention - fixes PageSpeed console errors
+        (function() {
+            'use strict';
+
+            // Prevent wp object access errors
+            if (typeof window.wp === 'undefined') {
+                window.wp = {
+                    media: function() {
+                        console.warn('WordPress media library not available on frontend');
+                        return {
+                            on: function(){},
+                            open: function(){},
+                            state: function(){
+                                return {
+                                    get: function(){
+                                        return {
+                                            first: function(){
+                                                return {
+                                                    toJSON: function(){ return {}; }
+                                                };
+                                            }
+                                        };
+                                    }
+                                };
+                            }
+                        };
+                    },
+                    customize: function() {
+                        console.warn('WordPress customizer API not available on frontend');
+                        return {
+                            bind: function(){}
+                        };
+                    },
+                    ajax: {
+                        post: function() {
+                            console.warn('WordPress AJAX not available');
+                            return Promise.resolve({});
+                        }
+                    },
+                    i18n: {
+                        setLocaleData: function(data, domain) {
+                            // Silently ignore setLocaleData calls on frontend
+                            return this;
+                        },
+                        __: function(text, domain) {
+                            return text; // Return original text as fallback
+                        },
+                        _x: function(text, context, domain) {
+                            return text; // Return original text as fallback
+                        },
+                        _n: function(single, plural, number, domain) {
+                            return number === 1 ? single : plural;
+                        },
+                        _nx: function(single, plural, number, context, domain) {
+                            return number === 1 ? single : plural;
+                        },
+                        isRTL: function() {
+                            return false; // Default to LTR
+                        }
+                    }
+                };
+            }
+
+            // Also handle individual wp.i18n access in case wp exists but i18n doesn't
+            if (typeof window.wp !== 'undefined' && typeof window.wp.i18n === 'undefined') {
+                window.wp.i18n = {
+                    setLocaleData: function(data, domain) {
+                        // Silently ignore setLocaleData calls on frontend
+                        return this;
+                    },
+                    __: function(text, domain) {
+                        return text;
+                    },
+                    _x: function(text, context, domain) {
+                        return text;
+                    },
+                    _n: function(single, plural, number, domain) {
+                        return number === 1 ? single : plural;
+                    },
+                    _nx: function(single, plural, number, context, domain) {
+                        return number === 1 ? single : plural;
+                    },
+                    isRTL: function() {
+                        return false;
+                    }
+                };
+            }
+        })();
+        </script>
+            <!-- JS language auto-redirect DISABLED — was causing random language switching -->
+    <!-- Language is controlled only by the URL prefix and manual language dropdown clicks -->
+    <script>
+    (function(){
+        // Only sync cookie when user is on a language-prefixed URL (from manual switch)
+        var AL=["da","uk","vi","th","id","ms","bn","zu","sq","sv","sk","no","fi","hu","bg","hr","sl","lt","ur","ro","pt","ja","zh","hi","ko","nl","pl","tr","el","cs","en","es","fr","de","ar","it","fa","ru"];
+        var segs=location.pathname.replace(/^\//,'').split('/'),first=segs[0];
+        if(first.length===2&&AL.indexOf(first)!==-1){
+            document.cookie='multilang_preferred='+first+';path=/;max-age=31536000;SameSite=Lax';
+        }
+    })();
+    </script>
+    <link rel="alternate" hreflang="sq" href="https://minigamesville.com/sq/games/minibattles/" />
+<link rel="alternate" hreflang="bn" href="https://minigamesville.com/bn/games/minibattles/" />
+<link rel="alternate" hreflang="bg" href="https://minigamesville.com/bg/games/minibattles/" />
+<link rel="alternate" hreflang="zh" href="https://minigamesville.com/zh/games/minibattles/" />
+<link rel="alternate" hreflang="hr" href="https://minigamesville.com/hr/games/minibattles/" />
+<link rel="alternate" hreflang="cs" href="https://minigamesville.com/cs/games/minibattles/" />
+<link rel="alternate" hreflang="da" href="https://minigamesville.com/da/games/minibattles/" />
+<link rel="alternate" hreflang="nl" href="https://minigamesville.com/nl/games/minibattles/" />
+<link rel="alternate" hreflang="fi" href="https://minigamesville.com/fi/games/minibattles/" />
+<link rel="alternate" hreflang="el" href="https://minigamesville.com/el/games/minibattles/" />
+<link rel="alternate" hreflang="hi" href="https://minigamesville.com/hi/games/minibattles/" />
+<link rel="alternate" hreflang="hu" href="https://minigamesville.com/hu/games/minibattles/" />
+<link rel="alternate" hreflang="id" href="https://minigamesville.com/id/games/minibattles/" />
+<link rel="alternate" hreflang="ja" href="https://minigamesville.com/ja/games/minibattles/" />
+<link rel="alternate" hreflang="ko" href="https://minigamesville.com/ko/games/minibattles/" />
+<link rel="alternate" hreflang="lt" href="https://minigamesville.com/lt/games/minibattles/" />
+<link rel="alternate" hreflang="ms" href="https://minigamesville.com/ms/games/minibattles/" />
+<link rel="alternate" hreflang="no" href="https://minigamesville.com/no/games/minibattles/" />
+<link rel="alternate" hreflang="pl" href="https://minigamesville.com/pl/games/minibattles/" />
+<link rel="alternate" hreflang="pt" href="https://minigamesville.com/pt/games/minibattles/" />
+<link rel="alternate" hreflang="ro" href="https://minigamesville.com/ro/games/minibattles/" />
+<link rel="alternate" hreflang="sk" href="https://minigamesville.com/sk/games/minibattles/" />
+<link rel="alternate" hreflang="sl" href="https://minigamesville.com/sl/games/minibattles/" />
+<link rel="alternate" hreflang="sv" href="https://minigamesville.com/sv/games/minibattles/" />
+<link rel="alternate" hreflang="th" href="https://minigamesville.com/th/games/minibattles/" />
+<link rel="alternate" hreflang="tr" href="https://minigamesville.com/tr/games/minibattles/" />
+<link rel="alternate" hreflang="uk" href="https://minigamesville.com/uk/games/minibattles/" />
+<link rel="alternate" hreflang="ur" href="https://minigamesville.com/ur/games/minibattles/" />
+<link rel="alternate" hreflang="vi" href="https://minigamesville.com/vi/games/minibattles/" />
+<link rel="alternate" hreflang="zu" href="https://minigamesville.com/zu/games/minibattles/" />
+<link rel="alternate" hreflang="en" href="https://minigamesville.com/games/minibattles/" />
+<link rel="alternate" hreflang="es" href="https://minigamesville.com/es/games/minibattles/" />
+<link rel="alternate" hreflang="fr" href="https://minigamesville.com/fr/games/minibattles/" />
+<link rel="alternate" hreflang="de" href="https://minigamesville.com/de/games/minibattles/" />
+<link rel="alternate" hreflang="ar" href="https://minigamesville.com/ar/games/minibattles/" />
+<link rel="alternate" hreflang="it" href="https://minigamesville.com/it/games/minibattles/" />
+<link rel="alternate" hreflang="fa" href="https://minigamesville.com/fa/games/minibattles/" />
+<link rel="alternate" hreflang="ru" href="https://minigamesville.com/ru/games/minibattles/" />
+<link rel="alternate" hreflang="x-default" href="https://minigamesville.com/games/minibattles/" />
+<!-- Google tag (gtag.js) consent mode dataLayer added by Site Kit -->
+<script id="google_gtagjs-js-consent-mode-data-layer">
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {"ad_personalization":"denied","ad_storage":"denied","ad_user_data":"denied","analytics_storage":"denied","functionality_storage":"denied","security_storage":"denied","personalization_storage":"denied","region":["AT","BE","BG","CH","CY","CZ","DE","DK","EE","ES","FI","FR","GB","GR","HR","HU","IE","IS","IT","LI","LT","LU","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK"],"wait_for_update":500});
+window._googlesitekitConsentCategoryMap = {"statistics":["analytics_storage"],"marketing":["ad_storage","ad_user_data","ad_personalization"],"functional":["functionality_storage","security_storage"],"preferences":["personalization_storage"]};
+window._googlesitekitConsents = {"ad_personalization":"denied","ad_storage":"denied","ad_user_data":"denied","analytics_storage":"denied","functionality_storage":"denied","security_storage":"denied","personalization_storage":"denied","region":["AT","BE","BG","CH","CY","CZ","DE","DK","EE","ES","FI","FR","GB","GR","HR","HU","IE","IS","IT","LI","LT","LU","LV","MT","NL","NO","PL","PT","RO","SE","SI","SK"],"wait_for_update":500};
+</script>
+<!-- End Google tag (gtag.js) consent mode dataLayer added by Site Kit -->
+
+<!-- Search Engine Optimization by Rank Math PRO - https://rankmath.com/ -->
+<title>Page Not Found - Minigamesville: Your Home for Free Mini Games | Play Now!</title>
+<meta name="robots" content="follow, noindex"/>
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Page Not Found - Minigamesville: Your Home for Free Mini Games | Play Now!" />
+<meta property="og:site_name" content="Minigamesville" />
+<meta property="og:image" content="https://minigamesville.com/wp-content/uploads/2026/03/minigamesvilleBanner.png" />
+<meta property="og:image:secure_url" content="https://minigamesville.com/wp-content/uploads/2026/03/minigamesvilleBanner.png" />
+<meta property="og:image:width" content="1856" />
+<meta property="og:image:height" content="576" />
+<meta property="og:image:type" content="image/png" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Page Not Found - Minigamesville: Your Home for Free Mini Games | Play Now!" />
+<meta name="twitter:image" content="https://minigamesville.com/wp-content/uploads/2026/03/minigamesvilleBanner.png" />
+<script type="application/ld+json" class="rank-math-schema-pro">{"@context":"https://schema.org","@graph":[{"@type":"Place","@id":"https://minigamesville.com/#place","address":{"@type":"PostalAddress","streetAddress":"2955 Horizon Park Drive","addressRegion":"Suwanee, GA","postalCode":"30024","addressCountry":"US"}},{"@type":"Organization","@id":"https://minigamesville.com/#organization","name":"Minigamesville","url":"https://minigamesville.com","email":"contact@minigamesville.com","address":{"@type":"PostalAddress","streetAddress":"2955 Horizon Park Drive","addressRegion":"Suwanee, GA","postalCode":"30024","addressCountry":"US"},"logo":{"@type":"ImageObject","@id":"https://minigamesville.com/#logo","url":"https://minigamesville.com/wp-content/uploads/2025/07/LOGO-MiniGamesVille.png","contentUrl":"https://minigamesville.com/wp-content/uploads/2025/07/LOGO-MiniGamesVille.png","caption":"Minigamesville","inLanguage":"en-US","width":"156","height":"100"},"description":"MiniGamesVille is a fast-growing online gaming platform dedicated to providing high-quality browser games for all ages. Whether you're into action, racing, puzzle, or strategy games, MiniGamesVille offers a constantly updated collection of fun, free-to-play titles that work instantly on any device\u2014no downloads or sign-ups required. With a clean user interface and a focus on performance, we aim to be the go-to destination for casual gamers worldwide. Play, compete, and discover your next favorite game today at MiniGamesVille.com!","legalName":"MiniGamesVille","location":{"@id":"https://minigamesville.com/#place"}},{"@type":"WebSite","@id":"https://minigamesville.com/#website","url":"https://minigamesville.com","name":"Minigamesville","alternateName":"Minigamesville","publisher":{"@id":"https://minigamesville.com/#organization"},"inLanguage":"en-US"},{"@type":"WebPage","@id":"#webpage","url":"","name":"Page Not Found - Minigamesville: Your Home for Free Mini Games | Play Now!","isPartOf":{"@id":"https://minigamesville.com/#website"},"inLanguage":"en-US"}]}</script>
+<!-- /Rank Math WordPress SEO plugin -->
+
+<link rel='dns-prefetch' href='//www.googletagmanager.com' />
+<link href='https://fonts.googleapis.com' crossorigin rel='preconnect' />
+<link href='https://fonts.gstatic.com' crossorigin rel='preconnect' />
+<meta name="theme-color" content="#1e3a8a">
+<meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1e3a8a" media="(prefers-color-scheme: dark)">
+<meta name="msapplication-navbutton-color" content="#1e3a8a">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="manifest" href="data:application/json;charset=utf-8,%7B%22name%22%3A%22Minigamesville%3A+Your+Home+for+Free+Mini+Games+%7C+Play+Now%21%22%2C%22short_name%22%3A%22Minigamesville%3A+Your+Home+for+Free+Mini+Games+%7C+Play+Now%21%22%2C%22theme_color%22%3A%22%231e3a8a%22%2C%22background_color%22%3A%22%231e3a8a%22%2C%22display%22%3A%22standalone%22%7D">
+<style id="ios-theme-color">
+@media only screen and (max-device-width: 430px) and (-webkit-min-device-pixel-ratio: 2) {
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: env(safe-area-inset-top, 0px);
+    background-color: #1e3a8a;
+    z-index: 9999;
+    pointer-events: none;
+    display: block;
+  }
+}
+}
+</style>
+<meta property="og:locale:alternate" content="es_ES" />
+<meta property="og:locale:alternate" content="fr_FR" />
+<meta property="og:locale:alternate" content="de_DE" />
+<meta property="og:locale:alternate" content="ar_SA" />
+<meta property="og:locale:alternate" content="it_IT" />
+<meta property="og:locale:alternate" content="fa_FA" />
+<meta property="og:locale:alternate" content="ru_RU" />
+<meta property="og:locale:alternate" content="pt_PT" />
+<meta property="og:locale:alternate" content="ja_JP" />
+<meta property="og:locale:alternate" content="zh_CN" />
+<meta property="og:locale:alternate" content="hi_IN" />
+<meta property="og:locale:alternate" content="ko_KR" />
+<meta property="og:locale:alternate" content="nl_NL" />
+<meta property="og:locale:alternate" content="pl_PL" />
+<meta property="og:locale:alternate" content="tr_TR" />
+<meta property="og:locale:alternate" content="el_EL" />
+<meta property="og:locale:alternate" content="cs_CS" />
+<meta property="og:locale:alternate" content="ro_RO" />
+<meta property="og:locale:alternate" content="sk_SK" />
+<meta property="og:locale:alternate" content="uk_UK" />
+<meta property="og:locale:alternate" content="vi_VI" />
+<meta property="og:locale:alternate" content="th_TH" />
+<meta property="og:locale:alternate" content="id_ID" />
+<meta property="og:locale:alternate" content="ms_MS" />
+<meta property="og:locale:alternate" content="bn_BN" />
+<meta property="og:locale:alternate" content="zu_ZU" />
+<meta property="og:locale:alternate" content="sq_SQ" />
+<meta property="og:locale:alternate" content="sv_SV" />
+<meta property="og:locale:alternate" content="da_DA" />
+<meta property="og:locale:alternate" content="no_NO" />
+<meta property="og:locale:alternate" content="fi_FI" />
+<meta property="og:locale:alternate" content="hu_HU" />
+<meta property="og:locale:alternate" content="bg_BG" />
+<meta property="og:locale:alternate" content="hr_HR" />
+<meta property="og:locale:alternate" content="sl_SL" />
+<meta property="og:locale:alternate" content="lt_LT" />
+<meta property="og:locale:alternate" content="ur_UR" />
+		<style>
+			.lazyload,
+			.lazyloading {
+				max-width: 100%;
+			}
+		</style>
+				<style>
+			.smush-dimensions {
+				--smush-image-aspect-ratio: auto;
+				aspect-ratio: var(--smush-image-aspect-ratio);
+			}
+		</style>
+		        <style id="critical-css">
+        /* Critical above-the-fold CSS */
+        *{margin:0;padding:0;box-sizing:border-box}
+        html{font-family:Rubik,-apple-system,BlinkMacSystemFont,sans-serif;scroll-behavior:smooth}
+        body{background:#0a0a0b;color:#fff;line-height:1.6;font-size:14px}
+        .site-header{height:56px;position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(0,0,0,.6);backdrop-filter:blur(19px)}
+        .container{margin:0 auto;padding:0 20px;max-width: 1400px;}
+        .homepage-container{max-width:100%;min-height:100vh;contain:layout;}
+        /* .game-card{background:#1a1a2e;border-radius:8px;overflow:hidden;transition:transform .3s} */
+        .game-card:hover{transform:scale(1.05)}
+        img{max-width:100%;height:auto;display:block}
+        /* Article content styling */
+        .game-description-container{background:linear-gradient(135deg,#1e3a8a 0%,#1e40af 50%,#312e81 100%);padding:1.5rem;border-radius:0.5rem;margin-bottom:1.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,0.3)}
+        .game-description-container h2,.game-description-container h3{color:#fff;margin-bottom:1rem}
+        .game-description-container ul{list-style-position:inside;margin-left:1rem}
+        .game-description-container li{margin-bottom:0.5rem}
+        /* Game facade for lazy loading */
+        .game-facade{position:relative;width:100%;height:600px;background:#000;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:8px}
+        .game-play-btn{background:rgba(0,0,0,0.7);color:#fff;border:3px solid #fff;border-radius:50%;width:120px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:transform 0.3s;cursor:pointer}
+        .game-play-btn:hover{transform:scale(1.1);background:rgba(0,0,0,0.9)}
+        .game-play-btn span{margin-top:10px;font-size:14px;font-weight:bold}
+        </style>
+        <style id="wp-img-auto-sizes-contain-inline-css">
+img:is([sizes=auto i],[sizes^="auto," i]){contain-intrinsic-size:3000px 1500px}
+/*# sourceURL=wp-img-auto-sizes-contain-inline-css */
+</style>
+<link rel='stylesheet' id='MyScoresPresenter-css' href='https://minigamesville.com/wp-content/uploads/hummingbird-assets/0906b4fd7f6a1bea8cacfd9d04e03552.css' media='all' />
+<style id="wp-block-library-inline-css">
+:root{--wp-block-synced-color:#7a00df;--wp-block-synced-color--rgb:122,0,223;--wp-bound-block-color:var(--wp-block-synced-color);--wp-editor-canvas-background:#ddd;--wp-admin-theme-color:#007cba;--wp-admin-theme-color--rgb:0,124,186;--wp-admin-theme-color-darker-10:#006ba1;--wp-admin-theme-color-darker-10--rgb:0,107,160.5;--wp-admin-theme-color-darker-20:#005a87;--wp-admin-theme-color-darker-20--rgb:0,90,135;--wp-admin-border-width-focus:2px}@media (min-resolution:192dpi){:root{--wp-admin-border-width-focus:1.5px}}.wp-element-button{cursor:pointer}:root .has-very-light-gray-background-color{background-color:#eee}:root .has-very-dark-gray-background-color{background-color:#313131}:root .has-very-light-gray-color{color:#eee}:root .has-very-dark-gray-color{color:#313131}:root .has-vivid-green-cyan-to-vivid-cyan-blue-gradient-background{background:linear-gradient(135deg,#00d084,#0693e3)}:root .has-purple-crush-gradient-background{background:linear-gradient(135deg,#34e2e4,#4721fb 50%,#ab1dfe)}:root .has-hazy-dawn-gradient-background{background:linear-gradient(135deg,#faaca8,#dad0ec)}:root .has-subdued-olive-gradient-background{background:linear-gradient(135deg,#fafae1,#67a671)}:root .has-atomic-cream-gradient-background{background:linear-gradient(135deg,#fdd79a,#004a59)}:root .has-nightshade-gradient-background{background:linear-gradient(135deg,#330968,#31cdcf)}:root .has-midnight-gradient-background{background:linear-gradient(135deg,#020381,#2874fc)}:root{--wp--preset--font-size--normal:16px;--wp--preset--font-size--huge:42px}.has-regular-font-size{font-size:1em}.has-larger-font-size{font-size:2.625em}.has-normal-font-size{font-size:var(--wp--preset--font-size--normal)}.has-huge-font-size{font-size:var(--wp--preset--font-size--huge)}:root .has-text-align-center{text-align:center}:root .has-text-align-left{text-align:left}:root .has-text-align-right{text-align:right}.has-fit-text{white-space:nowrap!important}#end-resizable-editor-section{display:none}.aligncenter{clear:both}.items-justified-left{justify-content:flex-start}.items-justified-center{justify-content:center}.items-justified-right{justify-content:flex-end}.items-justified-space-between{justify-content:space-between}.screen-reader-text{word-wrap:normal!important;border:0;clip-path:inset(50%);height:1px;margin:-1px;overflow:hidden;padding:0;position:absolute;width:1px;word-break:normal!important}.screen-reader-text:focus{background-color:#ddd;clip-path:none;color:#444;display:block;font-size:1em;height:auto;left:5px;line-height:normal;padding:15px 23px 14px;text-decoration:none;top:5px;width:auto;z-index:100000}html :where(.has-border-color){border-style:solid}html :where([style^=border-color],[style*=";border-color"],[style*="; border-color"]){border-style:solid}html :where([style^=border-top-color],[style*=";border-top-color"],[style*="; border-top-color"]){border-top-style:solid}html :where([style^=border-right-color],[style*=";border-right-color"],[style*="; border-right-color"]){border-right-style:solid}html :where([style^=border-bottom-color],[style*=";border-bottom-color"],[style*="; border-bottom-color"]){border-bottom-style:solid}html :where([style^=border-left-color],[style*=";border-left-color"],[style*="; border-left-color"]){border-left-style:solid}html :where([style^=border-width],[style*=";border-width"],[style*="; border-width"]){border-style:solid}html :where([style^=border-top-width],[style*=";border-top-width"],[style*="; border-top-width"]){border-top-style:solid}html :where([style^=border-right-width],[style*=";border-right-width"],[style*="; border-right-width"]){border-right-style:solid}html :where([style^=border-bottom-width],[style*=";border-bottom-width"],[style*="; border-bottom-width"]){border-bottom-style:solid}html :where([style^=border-left-width],[style*=";border-left-width"],[style*="; border-left-width"]){border-left-style:solid}html :where(img[class*=wp-image-]){height:auto;max-width:100%}:where(figure){margin:0 0 1em}html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:var(--wp-admin--admin-bar--height,0px)}@media screen and (max-width:600px){html :where(.is-position-sticky){--wp-admin--admin-bar--position-offset:0px}}
+
+/*# sourceURL=/wp-includes/css/dist/block-library/common.min.css */
+</style>
+<style id="classic-theme-styles-inline-css">
+/*! This file is auto-generated */
+.wp-block-button__link{color:#fff;background-color:#32373c;border-radius:9999px;box-shadow:none;text-decoration:none;padding:calc(.667em + 2px) calc(1.333em + 2px);font-size:1.125em}.wp-block-file__button{background:#32373c;color:#fff;text-decoration:none}
+/*# sourceURL=/wp-includes/css/classic-themes.min.css */
+</style>
+
+<style id="global-styles-inline-css">
+:root{--wp--preset--aspect-ratio--square: 1;--wp--preset--aspect-ratio--4-3: 4/3;--wp--preset--aspect-ratio--3-4: 3/4;--wp--preset--aspect-ratio--3-2: 3/2;--wp--preset--aspect-ratio--2-3: 2/3;--wp--preset--aspect-ratio--16-9: 16/9;--wp--preset--aspect-ratio--9-16: 9/16;--wp--preset--color--black: #000000;--wp--preset--color--cyan-bluish-gray: #abb8c3;--wp--preset--color--white: #ffffff;--wp--preset--color--pale-pink: #f78da7;--wp--preset--color--vivid-red: #cf2e2e;--wp--preset--color--luminous-vivid-orange: #ff6900;--wp--preset--color--luminous-vivid-amber: #fcb900;--wp--preset--color--light-green-cyan: #7bdcb5;--wp--preset--color--vivid-green-cyan: #00d084;--wp--preset--color--pale-cyan-blue: #8ed1fc;--wp--preset--color--vivid-cyan-blue: #0693e3;--wp--preset--color--vivid-purple: #9b51e0;--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple: linear-gradient(135deg,rgb(6,147,227) 0%,rgb(155,81,224) 100%);--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan: linear-gradient(135deg,rgb(122,220,180) 0%,rgb(0,208,130) 100%);--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange: linear-gradient(135deg,rgb(252,185,0) 0%,rgb(255,105,0) 100%);--wp--preset--gradient--luminous-vivid-orange-to-vivid-red: linear-gradient(135deg,rgb(255,105,0) 0%,rgb(207,46,46) 100%);--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray: linear-gradient(135deg,rgb(238,238,238) 0%,rgb(169,184,195) 100%);--wp--preset--gradient--cool-to-warm-spectrum: linear-gradient(135deg,rgb(74,234,220) 0%,rgb(151,120,209) 20%,rgb(207,42,186) 40%,rgb(238,44,130) 60%,rgb(251,105,98) 80%,rgb(254,248,76) 100%);--wp--preset--gradient--blush-light-purple: linear-gradient(135deg,rgb(255,206,236) 0%,rgb(152,150,240) 100%);--wp--preset--gradient--blush-bordeaux: linear-gradient(135deg,rgb(254,205,165) 0%,rgb(254,45,45) 50%,rgb(107,0,62) 100%);--wp--preset--gradient--luminous-dusk: linear-gradient(135deg,rgb(255,203,112) 0%,rgb(199,81,192) 50%,rgb(65,88,208) 100%);--wp--preset--gradient--pale-ocean: linear-gradient(135deg,rgb(255,245,203) 0%,rgb(182,227,212) 50%,rgb(51,167,181) 100%);--wp--preset--gradient--electric-grass: linear-gradient(135deg,rgb(202,248,128) 0%,rgb(113,206,126) 100%);--wp--preset--gradient--midnight: linear-gradient(135deg,rgb(2,3,129) 0%,rgb(40,116,252) 100%);--wp--preset--font-size--small: 13px;--wp--preset--font-size--medium: 20px;--wp--preset--font-size--large: 36px;--wp--preset--font-size--x-large: 42px;--wp--preset--spacing--20: 0.44rem;--wp--preset--spacing--30: 0.67rem;--wp--preset--spacing--40: 1rem;--wp--preset--spacing--50: 1.5rem;--wp--preset--spacing--60: 2.25rem;--wp--preset--spacing--70: 3.38rem;--wp--preset--spacing--80: 5.06rem;--wp--preset--shadow--natural: 6px 6px 9px rgba(0, 0, 0, 0.2);--wp--preset--shadow--deep: 12px 12px 50px rgba(0, 0, 0, 0.4);--wp--preset--shadow--sharp: 6px 6px 0px rgba(0, 0, 0, 0.2);--wp--preset--shadow--outlined: 6px 6px 0px -3px rgb(255, 255, 255), 6px 6px rgb(0, 0, 0);--wp--preset--shadow--crisp: 6px 6px 0px rgb(0, 0, 0);}.wp-block-button{--wp--preset--dimension--25: 25%;--wp--preset--dimension--50: 50%;--wp--preset--dimension--75: 75%;--wp--preset--dimension--100: 100%;}:where(body) { margin: 0; }:where(.is-layout-flex){gap: 0.5em;}:where(.is-layout-grid){gap: 0.5em;}body .is-layout-flex{display: flex;}.is-layout-flex{flex-wrap: wrap;align-items: center;}.is-layout-flex > :is(*, div){margin: 0;}body .is-layout-grid{display: grid;}.is-layout-grid > :is(*, div){margin: 0;}body{padding-top: 0px;padding-right: 0px;padding-bottom: 0px;padding-left: 0px;}:root :where(.wp-element-button, .wp-block-button__link){background-color: #32373c;border-width: 0;color: #fff;font-family: inherit;font-size: inherit;font-style: inherit;font-weight: inherit;letter-spacing: inherit;line-height: inherit;padding-top: calc(0.667em + 2px);padding-right: calc(1.333em + 2px);padding-bottom: calc(0.667em + 2px);padding-left: calc(1.333em + 2px);text-decoration: none;text-transform: inherit;}.has-black-color{color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-color{color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-color{color: var(--wp--preset--color--white) !important;}.has-pale-pink-color{color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-color{color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-color{color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-color{color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-color{color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-color{color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-color{color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-color{color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-color{color: var(--wp--preset--color--vivid-purple) !important;}.has-black-background-color{background-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-background-color{background-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-background-color{background-color: var(--wp--preset--color--white) !important;}.has-pale-pink-background-color{background-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-background-color{background-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-background-color{background-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-background-color{background-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-background-color{background-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-background-color{background-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-background-color{background-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-background-color{background-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-background-color{background-color: var(--wp--preset--color--vivid-purple) !important;}.has-black-border-color{border-color: var(--wp--preset--color--black) !important;}.has-cyan-bluish-gray-border-color{border-color: var(--wp--preset--color--cyan-bluish-gray) !important;}.has-white-border-color{border-color: var(--wp--preset--color--white) !important;}.has-pale-pink-border-color{border-color: var(--wp--preset--color--pale-pink) !important;}.has-vivid-red-border-color{border-color: var(--wp--preset--color--vivid-red) !important;}.has-luminous-vivid-orange-border-color{border-color: var(--wp--preset--color--luminous-vivid-orange) !important;}.has-luminous-vivid-amber-border-color{border-color: var(--wp--preset--color--luminous-vivid-amber) !important;}.has-light-green-cyan-border-color{border-color: var(--wp--preset--color--light-green-cyan) !important;}.has-vivid-green-cyan-border-color{border-color: var(--wp--preset--color--vivid-green-cyan) !important;}.has-pale-cyan-blue-border-color{border-color: var(--wp--preset--color--pale-cyan-blue) !important;}.has-vivid-cyan-blue-border-color{border-color: var(--wp--preset--color--vivid-cyan-blue) !important;}.has-vivid-purple-border-color{border-color: var(--wp--preset--color--vivid-purple) !important;}.has-vivid-cyan-blue-to-vivid-purple-gradient-background{background: var(--wp--preset--gradient--vivid-cyan-blue-to-vivid-purple) !important;}.has-light-green-cyan-to-vivid-green-cyan-gradient-background{background: var(--wp--preset--gradient--light-green-cyan-to-vivid-green-cyan) !important;}.has-luminous-vivid-amber-to-luminous-vivid-orange-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-amber-to-luminous-vivid-orange) !important;}.has-luminous-vivid-orange-to-vivid-red-gradient-background{background: var(--wp--preset--gradient--luminous-vivid-orange-to-vivid-red) !important;}.has-very-light-gray-to-cyan-bluish-gray-gradient-background{background: var(--wp--preset--gradient--very-light-gray-to-cyan-bluish-gray) !important;}.has-cool-to-warm-spectrum-gradient-background{background: var(--wp--preset--gradient--cool-to-warm-spectrum) !important;}.has-blush-light-purple-gradient-background{background: var(--wp--preset--gradient--blush-light-purple) !important;}.has-blush-bordeaux-gradient-background{background: var(--wp--preset--gradient--blush-bordeaux) !important;}.has-luminous-dusk-gradient-background{background: var(--wp--preset--gradient--luminous-dusk) !important;}.has-pale-ocean-gradient-background{background: var(--wp--preset--gradient--pale-ocean) !important;}.has-electric-grass-gradient-background{background: var(--wp--preset--gradient--electric-grass) !important;}.has-midnight-gradient-background{background: var(--wp--preset--gradient--midnight) !important;}.has-small-font-size{font-size: var(--wp--preset--font-size--small) !important;}.has-medium-font-size{font-size: var(--wp--preset--font-size--medium) !important;}.has-large-font-size{font-size: var(--wp--preset--font-size--large) !important;}.has-x-large-font-size{font-size: var(--wp--preset--font-size--x-large) !important;}
+/*# sourceURL=global-styles-inline-css */
+</style>
+
+<link rel='stylesheet' id='wphb-1-css' href='https://minigamesville.com/wp-content/uploads/hummingbird-assets/f404ac2a3a4f41e45e99957d81ada905.css' media='all' />
+<style id="wphb-1-inline-css">
+
+            /* WP-PostRatings Dark Theme Styling */
+            .post-ratings {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 12px;
+                color: rgba(255, 255, 255, 0.7);
+                margin: 5px 0;
+            }
+            
+            .post-ratings img {
+                vertical-align: middle;
+                filter: brightness(1.2);
+            }
+            
+            .post-ratings-text {
+                color: rgba(255, 255, 255, 0.7);
+                font-size: 12px;
+            }
+            
+            .post-ratings a {
+                text-decoration: none;
+                color: rgba(255, 255, 255, 0.7);
+                transition: color 0.2s ease;
+            }
+            
+            .post-ratings a:hover {
+                color: rgba(255, 255, 255, 1);
+            }
+            
+            /* Style the rating results display */
+            .post-ratings-loading,
+            .post-ratings-no-rating {
+                color: rgba(255, 255, 255, 0.5);
+                font-size: 11px;
+            }
+            
+            /* Make stars more visible on dark background */
+            .wp-postratings img {
+                opacity: 0.9;
+            }
+            
+            .wp-postratings img:hover {
+                opacity: 1;
+                transform: scale(1.1);
+                transition: all 0.2s ease;
+            }
+        
+/*# sourceURL=wphb-1-inline-css */
+</style>
+
+<!-- Google tag (gtag.js) snippet added by Site Kit -->
+<!-- Google Analytics snippet added by Site Kit -->
+<!-- Google Ads snippet added by Site Kit -->
+<script id="google_gtagjs-js" src="https://www.googletagmanager.com/gtag/js?id=GT-WBL62QWT" async></script>
+<script id="google_gtagjs-js-after">
+window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}
+gtag("set","linker",{"domains":["minigamesville.com"]});
+gtag("js", new Date());
+gtag("set", "developer_id.dZTNiMT", true);
+gtag("config", "GT-WBL62QWT");
+gtag("config", "AW-859246916");
+ window._googlesitekit = window._googlesitekit || {}; window._googlesitekit.throttledEvents = []; window._googlesitekit.gtagEvent = (name, data) => { var key = JSON.stringify( { name, data } ); if ( !! window._googlesitekit.throttledEvents[ key ] ) { return; } window._googlesitekit.throttledEvents[ key ] = true; setTimeout( () => { delete window._googlesitekit.throttledEvents[ key ]; }, 5 ); gtag( "event", name, { ...data, event_source: "site-kit" } ); }; 
+//# sourceURL=google_gtagjs-js-after
+</script>
+<link rel="https://api.w.org/" href="https://minigamesville.com/wp-json/" /><meta name="generator" content="Site Kit by Google 1.187.0" /><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2650231681313872"
+     crossorigin="anonymous"></script>
+<!-- Hotjar Tracking Code for https://minigamesville.com/ -->
+<meta name="referrer" content="no-referrer-when-downgrade" />
+<meta name="generator" content="MyArcadePlugin Pro 6.6.0" />
+		<script>
+			document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+		</script>
+				<style>
+			.no-js img.lazyload {
+				display: none;
+			}
+
+			figure.wp-block-image img.lazyloading {
+				min-width: 150px;
+			}
+
+			.lazyload,
+			.lazyloading {
+				--smush-placeholder-width: 100px;
+				--smush-placeholder-aspect-ratio: 1/1;
+				width: var(--smush-image-width, var(--smush-placeholder-width)) !important;
+				aspect-ratio: var(--smush-image-aspect-ratio, var(--smush-placeholder-aspect-ratio)) !important;
+			}
+
+						.lazyload {
+				opacity: 0;
+			}
+
+			.lazyloading {
+				border: 0 !important;
+				opacity: 1;
+				background: rgba(255, 255, 255, 0) url('https://minigamesville.com/wp-content/plugins/wp-smush-pro/app/assets/images/smush-lazyloader-2.gif') no-repeat center !important;
+				background-size: 16px auto !important;
+				min-width: 16px;
+			}
+
+					</style>
+		<!-- Analytics by WP Statistics - https://wp-statistics.com -->
+    <style>
+    /* Mobile Edge Tab Toggle - Only on Mobile/Tablet */
+    @media (pointer: coarse), (max-width: 1024px) {
+
+        /* Edge Tab Indicator */
+        .mobile-sidebar-toggle {
+            position: fixed;
+            left: 0;            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 85px;
+            background: linear-gradient(135deg, rgba(45, 55, 72, 0.95) 0%, rgba(74, 85, 104, 0.95) 100%);
+            cursor: pointer;
+            z-index: 1001;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.25);
+            border-radius: 0 18px 18px 0;        }
+
+        .mobile-sidebar-toggle:active {
+            transform: translateY(-50%) scale(0.95);
+        }
+
+        .mobile-sidebar-toggle .toggle-arrow {
+            width: 18px;
+            height: 18px;
+            color: white;
+            transition: transform 0.3s ease;
+                    }
+
+        /* When sidebar is open - adjust tab position for full sidebar width */
+        .mobile-sidebar-toggle.sidebar-open {
+            left: 200px;        }
+
+        .mobile-sidebar-toggle.sidebar-open .toggle-arrow {
+            transform: rotate(180deg);
+                    }
+
+        /* Hide desktop sidebar by default on mobile - use transform, NOT display:none */
+        .onlinegames-vertical-sidebar {
+            display: block !important; /* Override sidebar.js display:none */
+                            left: 0 !important;
+                transform: translateX(-100%);
+                        transition: transform 0.3s ease;
+        }
+
+        /* Show sidebar when open - force expanded state with text visible */
+        body.mobile-sidebar-open .onlinegames-vertical-sidebar {
+            transform: translateX(0) !important;
+            width: 200px !important; /* Force expanded width */
+        }
+
+        /* Force text to be visible when sidebar is open on mobile */
+        body.mobile-sidebar-open .sidebar-text {
+            opacity: 1 !important;
+            transform: translateX(0) !important;
+        }
+
+        /* Ensure sidebar doesn't collapse on mobile when open */
+        body.mobile-sidebar-open .onlinegames-vertical-sidebar:hover {
+            width: 200px !important; /* Keep same width on hover */
+        }
+
+        /* Overlay */
+        .mobile-sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        body.mobile-sidebar-open .mobile-sidebar-overlay {
+            display: block;
+            opacity: 1;
+        }
+
+        /* Hide original hamburger menu on mobile */
+        #hamburger-closed,
+        #hamburger-open,
+        .hamburger-menu {
+            display: none !important;
+        }
+    }
+
+    /* Desktop - Hide mobile toggle */
+    @media (pointer: fine) and (min-width: 1025px) {
+        .mobile-sidebar-toggle,
+        .mobile-sidebar-overlay {
+            display: none !important;
+        }
+
+        /* Ensure desktop sidebar is always visible */
+        .onlinegames-vertical-sidebar {
+            transform: translateX(0) !important;
+        }
+    }
+    </style>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const toggle = document.getElementById('mobile-sidebar-toggle');
+        const overlay = document.getElementById('mobile-sidebar-overlay');
+        const body = document.body;
+        const sidebarPosition = 'left';
+
+        // Check if we're on mobile/tablet
+        function isMobileDevice() {
+            return window.matchMedia('(pointer: coarse)').matches ||
+                   window.matchMedia('(max-width: 1024px)').matches;
+        }
+
+        if (!isMobileDevice()) return;
+
+        // Toggle sidebar
+        function toggleSidebar() {
+            // Ensure sidebar is display:block (sidebar.js may have set display:none)
+            const sidebar = document.getElementById('categories-sidebar');
+            if (sidebar) {
+                sidebar.style.display = 'block';
+            }
+            body.classList.toggle('mobile-sidebar-open');
+            toggle.classList.toggle('sidebar-open');
+        }
+
+        // Close sidebar
+        function closeSidebar() {
+            body.classList.remove('mobile-sidebar-open');
+            toggle.classList.remove('sidebar-open');
+        }
+
+        // Event listeners
+        if (toggle) {
+            toggle.addEventListener('click', toggleSidebar);
+        }
+
+        if (overlay) {
+            overlay.addEventListener('click', closeSidebar);
+        }
+
+        // Close on Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && body.classList.contains('mobile-sidebar-open')) {
+                closeSidebar();
+            }
+        });
+
+        // Swipe gesture support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function(e) {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.addEventListener('touchend', function(e) {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const edgeThreshold = 30;
+
+            if (sidebarPosition === 'left') {
+                // Swipe from left edge to open
+                if (touchStartX < edgeThreshold && touchEndX > touchStartX + swipeThreshold) {
+                    body.classList.add('mobile-sidebar-open');
+                    toggle.classList.add('sidebar-open');
+                }
+                // Swipe left to close
+                if (touchEndX < touchStartX - swipeThreshold && body.classList.contains('mobile-sidebar-open')) {
+                    closeSidebar();
+                }
+            } else {
+                // Swipe from right edge to open
+                if (touchStartX > window.innerWidth - edgeThreshold && touchEndX < touchStartX - swipeThreshold) {
+                    body.classList.add('mobile-sidebar-open');
+                    toggle.classList.add('sidebar-open');
+                }
+                // Swipe right to close
+                if (touchEndX > touchStartX + swipeThreshold && body.classList.contains('mobile-sidebar-open')) {
+                    closeSidebar();
+                }
+            }
+        }
+    });
+    </script>
+        <style>
+    /* Cache-friendly CSS - Same for ALL users, browser adapts via media queries */
+
+        /* Mobile detection using CSS media queries only - no backend conditionals */
+
+    /* Hide carousels on mobile devices */
+    @media (max-width: 768px), (pointer: coarse) and (max-width: 1024px) {
+        #top-carousel-section,
+        #related-carousel-section,
+        .carousel-section,
+        .carousel-container,
+        .carousel-viewport,
+        .simple-carousel,
+        [id*="carousel"],
+        [class*="carousel"] {
+            display: none !important;
+        }
+    }
+
+    /* Mobile layout - show launcher, hide iframe */
+    @media (pointer: coarse) and (max-width: 1024px),
+           (max-width: 600px) {
+        .game-iframe-container,
+        .myarcade-game-container,
+        .desktop-game-container {
+            display: none !important;
+        }
+        .mobile-game-launcher {
+            display: block !important;
+        }
+    }
+
+    /* Desktop layout - hide launcher, show iframe */
+    @media (pointer: fine) and (min-width: 601px) {
+        .mobile-game-launcher {
+            display: none !important;
+        }
+        .game-iframe-container,
+        .myarcade-game-container,
+        .desktop-game-container {
+            display: block !important;
+        }
+    }
+    
+    /* ========================================
+       TOP GAMES STRIP (replaces top banner on game pages)
+       ======================================== */
+    /* Horizontal top games strip */
+    .top-games-strip {
+        display: flex;
+        align-items: stretch;
+        gap: 6px;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 6px 20px;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+    .single .site-main {
+        padding-top: 0 !important;
+        margin-top: 0 !important;
+    }
+    .top-game-item {
+        flex: 1 1 0;
+        min-width: 0;
+        aspect-ratio: 1 / 1;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.2s ease;
+    }
+    .top-game-item:hover {
+        transform: scale(1.05);
+        z-index: 2;
+    }
+    .top-game-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    .single .ad-container-top-banner {
+        display: none; /* CSS fallback before JS destroy runs */
+    }
+    @media (max-width: 768px) {
+        .top-games-strip {
+            display: none;
+        }
+    }
+
+    /* Vertical side game columns - fixed beside ad containers */
+    .side-games-column {
+        position: fixed;
+        top: 90px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        z-index: 99;
+        overflow: hidden;
+    }
+    .side-games-left {
+        right: calc(50% + 500px + 300px + 4px);
+    }
+    .side-games-right {
+        left: calc(50% + 500px + 300px + 4px);
+    }
+    .side-game-item {
+        display: block;
+        width: 90px;
+        height: 90px;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.2s ease;
+    }
+    .side-game-item:hover {
+        transform: scale(1.08);
+        z-index: 2;
+    }
+    .side-game-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+    /* Hide side columns when not enough edge space */
+    @media (max-width: 1799px) {
+        .side-games-column {
+            display: none;
+        }
+    }
+
+    /* ========================================
+       AD CONTAINERS - Positioning & Sizing
+       ======================================== */
+
+    /* Top Banner Ads (below header / top of page) */
+    .ad-container-below-header,
+    .ad-container-top-banner {
+        width: 970px;
+        height: 90px;
+        max-width: 100%;
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Below Game Ad (between game and related carousel) */
+    .ad-container-below-game {
+        width: 728px;
+        height: 90px;
+        max-width: 100%;
+        margin: 20px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    /* Mobile-only ads (300x100) - hidden on desktop, shown on mobile */
+    .ad-container-below-game-mobile,
+    .ad-container-below-grid-mobile {
+        width: 300px;
+        height: 100px;
+        margin: 12px auto;
+        display: none;
+        align-items: center;
+        justify-content: center;
+    }
+    @media (max-width: 768px) {
+        .ad-container-below-game-mobile,
+        .ad-container-below-grid-mobile {
+            display: flex;
+        }
+    }
+
+    /* Left Sidebar Ad - Flush with content edge */
+    .ad-container-left-sidebar {
+        position: fixed;
+        right: calc(50% + 500px);
+        top: 90px;
+        width: 300px;
+        height: 600px;
+        z-index: 100;
+    }
+
+    /* Right Sidebar Ad - Flush with content edge */
+    .ad-container-right-sidebar {
+        position: fixed;
+        left: calc(50% + 500px);
+        top: 90px;
+        width: 300px;
+        height: 600px;
+        z-index: 100;
+    }
+
+    /* Left Sidebar Bottom Ad (300x250) - Below the 300x600 */
+    .ad-container-left-sidebar-bottom {
+        position: fixed;
+        right: calc(50% + 500px);
+        top: 700px;
+        width: 300px;
+        height: 250px;
+        z-index: 100;
+    }
+
+    /* Right Sidebar Bottom Ad (300x250) - Below the 300x600 */
+    .ad-container-right-sidebar-bottom {
+        position: fixed;
+        left: calc(50% + 500px);
+        top: 700px;
+        width: 300px;
+        height: 250px;
+        z-index: 100;
+    }
+
+    /* 160x600 sidebar fallbacks - flush with content edge */
+    .ad-container-left-sidebar-160 {
+        position: fixed;
+        right: calc(50% + 500px);
+        top: 90px;
+        width: 160px;
+        height: 600px;
+        z-index: 100;
+        display: none;
+    }
+    .ad-container-right-sidebar-160 {
+        position: fixed;
+        left: calc(50% + 500px);
+        top: 90px;
+        width: 160px;
+        height: 600px;
+        z-index: 100;
+        display: none;
+    }
+
+    /* 120x600 sidebar fallbacks - flush with content edge */
+    .ad-container-left-sidebar-120 {
+        position: fixed;
+        right: calc(50% + 500px);
+        top: 90px;
+        width: 120px;
+        height: 600px;
+        z-index: 100;
+        display: none;
+    }
+    .ad-container-right-sidebar-120 {
+        position: fixed;
+        left: calc(50% + 500px);
+        top: 90px;
+        width: 120px;
+        height: 600px;
+        z-index: 100;
+        display: none;
+    }
+
+    /* CSS fallback: cascade side ads by screen width (prevents CLS flash) */
+
+    /* > 1600px: 300x600 shown (default), fallbacks hidden (default) */
+
+    /* 1321-1600px: hide 300s, show 160s */
+    @media (max-width: 1600px) {
+        .ad-container-left-sidebar,
+        .ad-container-right-sidebar,
+        .ad-container-left-sidebar-bottom,
+        .ad-container-right-sidebar-bottom {
+            display: none !important;
+        }
+        .ad-container-left-sidebar-160,
+        .ad-container-right-sidebar-160 {
+            display: block;
+        }
+    }
+
+    /* 1241-1320px: hide 160s, show 120s */
+    @media (max-width: 1320px) {
+        .ad-container-left-sidebar-160,
+        .ad-container-right-sidebar-160 {
+            display: none !important;
+        }
+        .ad-container-left-sidebar-120,
+        .ad-container-right-sidebar-120 {
+            display: block;
+        }
+    }
+
+    /* <= 1240px: hide all side ads */
+    @media (max-width: 1240px) {
+        .ad-container-left-sidebar-120,
+        .ad-container-right-sidebar-120 {
+            display: none !important;
+        }
+    }
+    @media (max-width: 1024px) {
+        .ad-container-below-header,
+        .ad-container-top-banner {
+            width: 728px;
+            height: 90px;
+        }
+    }
+    @media (max-width: 768px) {
+        .ad-container-below-header,
+        .ad-container-top-banner,
+        .ad-container-below-game {
+            display: none !important;
+        }
+    }
+    </style>
+    <style>.site-header { height: 80px; padding: 0 20px; box-shadow: 0 2px 15px rgba(0,0,0,0.3); position: fixed; top: 0; left: 0; right: 0; z-index: 1000; } .site-header .site-logo img { max-height: 60px; } .site-header .site-logo span { font-size: 1.375rem; } .site-header .search-container { max-width: 450px; } #mobile-menu-toggle { left: 14px !important; } .site-main { margin-top: 80px !important; padding-top: 1rem !important; } </style>    <style type="text/css" id="minigames-hybrid-custom-css">
+        :root {
+            --accent-primary: #9146ff;
+        }
+        
+        .text-accent,
+        .bg-accent-primary,
+        .hover\:bg-accent-primary:hover,
+        .social-navigation a:hover {
+            --color-primary: #9146ff;
+        }
+    </style>
+        <style id="carousel-dynamic-styles">
+        /* Top Carousel Styles */
+        [data-filter="top"] .game-carousel,
+        #carousel-top {
+            gap: 16px;
+        }
+        
+        [data-filter="top"] .carousel-card {
+            width: 160px !important;
+            height: 160px !important;
+        }
+        
+        [data-filter="top"] .carousel-card .game-card-link {
+            border-radius: 8px;
+        }
+        
+        /* Related Carousel Styles */
+        [data-filter="related"] .game-carousel,
+        #carousel-related {
+            gap: 16px;
+        }
+        
+        [data-filter="related"] .carousel-card {
+            width: 160px !important;
+            height: 160px !important;
+        }
+        
+        [data-filter="related"] .carousel-card .game-card-link {
+            border-radius: 8px;
+        }
+        
+        /* Default for other carousels */
+        .game-carousel {
+            gap: 16px;
+        }
+        
+        .carousel-card {
+            width: 160px !important;
+            height: 160px !important;
+        }
+        
+        .carousel-card .game-card-link {
+            border-radius: 8px;
+        }
+        
+                
+                
+        /* Style-specific CSS for Top Carousel */
+                
+        /* Style-specific CSS for Related Carousel */
+                
+        /* Navigation arrows visibility */
+                
+                
+        /* Navigation dots visibility */
+                
+            </style>
+    <style type="text/css" id="minigames-hybrid-component-colors">
+body, html { background: linear-gradient(270deg, rgba(44, 101, 224, 1), rgba(160, 32, 92, 1)) !important; }
+body { min-height: 100vh; }
+body .site-header[id], body #site-header { background: linear-gradient(135deg, rgba(30, 58, 138, 1), rgba(88, 28, 135, 1)) !important; }
+.onlinegames-vertical-sidebar, .sidebar, .categories-sidebar, .game-sidebar { background: linear-gradient(165deg, rgba(30, 58, 138, 1), rgba(33, 34, 51, 1)) !important; }
+.onlinegames-vertical-sidebar .sidebar-link { color: rgba(255, 255, 255, 0.8) !important; }
+.onlinegames-vertical-sidebar .sidebar-link:hover { color: #ffffff !important; }
+.onlinegames-vertical-sidebar .sidebar-text { color: inherit !important; }
+.onlinegames-vertical-sidebar .sidebar-icon { color: inherit !important; }
+.onlinegames-vertical-sidebar .sidebar-item.active .sidebar-link { color: #4f9eff !important; border-left-color: #4f9eff !important; }
+.onlinegames-vertical-sidebar .sidebar-item.active .sidebar-icon { color: #4f9eff !important; }
+.onlinegames-vertical-sidebar, .sidebar, .categories-sidebar, .game-sidebar { color: #ffffff !important; }
+.sidebar h3, .sidebar h4, .categories-sidebar h3, .game-sidebar h3 { color: #ffffff !important; }
+.games-grid-section, .main-content, .homepage-container .container { background-color: rgba(33, 34, 51, 0) !important;}
+.games-grid-section { padding: 2rem 1rem; border-radius: 12px; margin: 1rem 0; }
+.game-card, .game-card-link { background-color: rgba(45, 55, 72, 1) !important; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; }
+.game-card:hover, .game-card-link:hover { opacity: 0.9; border-color: rgba(255,255,255,0.2); transform: translateY(-2px); transition: all 0.3s ease; }
+.site-footer, .footer-content { background-color: rgba(15, 23, 42, 1) !important; }
+section.hero-section, .homepage-content-section, #front_page_text, .category-article-section { background-color: rgba(26, 27, 40, 1) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+div.game-description-container, div.single-game-description, div.game-content-container { background-color: rgba(45, 55, 72, 1) !important; border: 1px solid rgba(255,255,255,0.2) !important; }
+:root { --link-primary: var(--text-primary); --link-hover: var(--accent-primary); --link-visited: var(--text-secondary); }
+a:not(.sidebar-categories a):not(.game-categories-sidebar a):not(.categories-list a):not(.widget_categories a):not(.sidebar-link) { color: var(--link-primary) !important; }
+a:not(.sidebar-categories a):not(.game-categories-sidebar a):not(.categories-list a):not(.widget_categories a):not(.sidebar-link):hover { color: var(--link-hover) !important; opacity: 0.8; }
+a:not(.sidebar-categories a):not(.game-categories-sidebar a):not(.categories-list a):not(.widget_categories a):not(.sidebar-link):visited { color: var(--link-visited) !important; }
+</style>
+<link rel="icon" href="https://minigamesville.com/wp-content/uploads/2025/07/cropped-MINIGAMES-150x150-1-32x32.png" sizes="32x32" />
+<link rel="icon" href="https://minigamesville.com/wp-content/uploads/2025/07/cropped-MINIGAMES-150x150-1-192x192.png" sizes="192x192" />
+<link rel="apple-touch-icon" href="https://minigamesville.com/wp-content/uploads/2025/07/cropped-MINIGAMES-150x150-1-180x180.png" />
+<meta name="msapplication-TileImage" content="https://minigamesville.com/wp-content/uploads/2025/07/cropped-MINIGAMES-150x150-1-270x270.png" />
+</head>
+
+<body class="error404 wp-custom-logo wp-embed-responsive wp-theme-finaltheme dark-theme show-categories minigames-hybrid-theme">
+
+<div id="page" class="site">
+    <!-- UNIVERSAL HEADER -->
+    
+<style>
+/* ================================================
+   GLOBAL IMAGE SIZES - Applied to ALL pages
+   ================================================ */
+
+/* Header Logo - Desktop and Mobile */
+.site-logo img,
+.site-header .site-logo img {
+    height: 70px !important;
+    width: auto !important;
+    max-height: 70px !important;
+    object-fit: contain !important;
+}
+
+/* Language Flags */
+.language-selector img,
+.lang-item img,
+img[src*="flag"],
+img[alt*="flag"] {
+    width: 24px !important;
+    height: 16px !important;
+    max-width: 24px !important;
+    max-height: 16px !important;
+    object-fit: cover !important;
+    display: inline-block !important;
+    vertical-align: middle !important;
+}
+
+/* Sidebar Icons */
+.onlinegames-vertical-sidebar .sidebar-icon-img,
+.sidebar-icon-img {
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Horizontal Category Icons */
+.category-icon-img {
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    min-height: 18px !important;
+    max-width: 18px !important;
+    max-height: 18px !important;
+    object-fit: contain !important;
+    display: block !important;
+}
+
+/* Mobile-specific header styles */
+@media (max-width: 768px) {
+    .desktop-search-container,
+    .desktop-lang-switcher {
+        display: none !important;
+    }
+
+    .mobile-header-icons {
+        display: flex !important;
+    }
+
+    /* Hide hamburger buttons on mobile */
+    .desktop-only-hamburger {
+        display: none !important;
+    }
+
+    /* Remove logo margin on mobile */
+    .site-logo {
+        margin-left: 0 !important;
+    }
+
+    /* Note: Logo img size now defined globally above (40px) */
+
+    .site-logo span {
+        font-size: 1.2rem !important;
+        max-width: 150px !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    /* Mobile search overlay */
+    .mobile-search-overlay {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.95);
+        padding: 15px;
+        display: none;
+        z-index: 999;
+        animation: slideDown 0.3s ease;
+    }
+
+    .mobile-search-overlay.active {
+        display: block;
+    }
+
+    /* Mobile language overlay */
+    .mobile-lang-overlay {
+        position: fixed;
+        top: 56px;
+        right: 0;
+        background: #1a1a1b;
+        border: 1px solid #333;
+        border-radius: 0 0 0 12px;
+        box-shadow: -2px 4px 12px rgba(0,0,0,0.4);
+        max-width: 250px;
+        width: 70%;
+        display: none;
+        z-index: 999;
+        max-height: 70vh;
+        overflow-y: auto;
+        animation: slideInRight 0.3s ease;
+    }
+
+    .mobile-lang-overlay.active {
+        display: block;
+    }
+
+    @keyframes slideDown {
+        from { transform: translateY(-100%); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes slideInRight {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+}
+
+/* Desktop styles */
+@media (min-width: 769px) {
+    .mobile-header-icons,
+    .mobile-search-overlay,
+    .mobile-lang-overlay {
+        display: none !important;
+    }
+}
+
+/* Mobile icon buttons */
+.mobile-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mobile-icon-btn:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.mobile-icon-btn.active {
+    background: rgba(255,255,255,0.25);
+    border-color: rgba(255,255,255,0.4);
+}
+</style>
+
+<header class="site-header" style="background: linear-gradient(135deg, #1e3a8a, #581c87);" id="site-header">
+    <div style="display: flex; align-items: center; justify-content: space-between; height: 80px; padding: 0 20px;">
+
+        <!-- Left side -->
+        <div style="display: flex; align-items: center; gap: 15px;">
+            <!-- Left-side hamburger (DESKTOP ONLY - hidden on mobile) -->
+                        <button id="mobile-menu-toggle" aria-label="sidebar toggle" class="desktop-only-hamburger" onclick="toggleSidebar()" style="display: flex; align-items: center; justify-content: center; padding: 8px; color: white; background: none; border: none; border-radius: 4px; cursor: pointer; position: fixed; left: 14px; z-index: 1001;">
+                <svg id="hamburger-closed" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display: block;">
+                    <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M19 4C19.5523 4 20 3.55229 20 3C20 2.44772 19.5523 2 19 2L3 2C2.44772 2 2 2.44772 2 3C2 3.55228 2.44772 4 3 4L19 4ZM20.47 7.95628L15.3568 11.152C14.7301 11.5437 14.7301 12.4564 15.3568 12.848L20.47 16.0438C21.136 16.4601 22 15.9812 22 15.1958V8.80427C22 8.01884 21.136 7.54 20.47 7.95628ZM11 13C11.5523 13 12 12.5523 12 12C12 11.4477 11.5523 11 11 11L3 11C2.44771 11 2 11.4477 2 12C2 12.5523 2.44771 13 3 13L11 13ZM20 21C20 21.5523 19.5523 22 19 22L3 22C2.44771 22 2 21.5523 2 21C2 20.4477 2.44771 20 3 20L19 20C19.5523 20 20 20.4477 20 21Z"/>
+                </svg>
+                <svg id="hamburger-open" viewBox="0 0 24 24" width="24" height="24" fill="currentColor" style="display: none;">
+                    <path xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd" clip-rule="evenodd" d="M21 4C21.5523 4 22 3.55229 22 3C22 2.44772 21.5523 2 21 2L5 2C4.44772 2 4 2.44772 4 3C4 3.55228 4.44772 4 5 4L21 4ZM3.53 16.0438L8.6432 12.848C9.26987 12.4563 9.26987 11.5437 8.6432 11.152L3.53 7.95625C2.86395 7.53997 2 8.01881 2 8.80425V15.1958C2 15.9812 2.86395 16.46 3.53 16.0438ZM21 13C21.5523 13 22 12.5523 22 12C22 11.4477 21.5523 11 21 11L13 11C12.4477 11 12 11.4477 12 12C12 12.5523 12.4477 13 13 13L21 13ZM22 21C22 21.5523 21.5523 22 21 22L5 22C4.44771 22 4 21.5523 4 21C4 20.4477 4.44771 20 5 20L21 20C21.5523 20 22 20.4477 22 21Z"/>
+                </svg>
+            </button>
+            
+            <!-- Logo - on mobile no margin, on desktop margin if sidebar on left -->
+            <div class="site-logo" style="margin-left: 60px;">
+                                    <a href="https://minigamesville.com/" style="display: flex; align-items: center;">
+                        <img src="https://minigamesville.com/wp-content/uploads/2025/07/LOGO-MiniGamesVille.png"
+                             alt="Minigamesville: Your Home for Free Mini Games | Play Now!"
+                             style="--smush-image-width: 156px; --smush-image-aspect-ratio: 156/100;max-height: 60px; width: auto; display: block;" width="156" class="smush-dimensions">
+                    </a>
+                                </div>
+        </div>
+
+        <!-- Desktop Center: Search Bar -->
+        <div class="desktop-search-container search-container" style="flex: 1; max-width: 450px; margin: 0 20px; display: flex; align-items: center;">
+            <form role="search" method="get" style="width: 100%; display: flex;" action="https://minigamesville.com/" onsubmit="return validateSearch(this)">
+                <div style="position: relative; width: 100%;">
+                    <input type="search"
+                           style="width: 100%; padding: 8px 45px 8px 16px; border-radius: 8px; background: rgba(255,255,255,0.9); border: none; color: #333; outline: none; font-size: 14px; box-sizing: border-box;"
+                           placeholder="Search games..."
+                           value=""
+                           name="s"
+                           title="Search games...">
+
+                    <button type="submit"
+                            style="position: absolute; right: 6px; top: 4px;  padding: 4px; background: none; border: none; color: #1e3a8a; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 32px;"
+                            aria-label="Search">
+                        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Right side -->
+        <div style="display: flex; align-items: center; gap: 15px;">
+
+            <!-- Desktop Language Switcher -->
+                        <div class="desktop-lang-switcher language-switcher" style="position: relative;">
+                <button id="lang-switcher-toggle" onclick="toggleLangDropdown()" style="display: flex; align-items: center; gap: 6px; padding: 6px 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; color: white; cursor: pointer; font-size: 14px;">
+                                        <img src="https://minigamesville.com/wp-content/uploads/flags/us.png" alt="English" style="width: 20px; height: 15px; object-fit: cover;">
+                    <span>EN</span>
+                    <svg width="12" height="12" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+
+                <div id="lang-dropdown" style="display: none; position: absolute; top: 100%; right: 0; margin-top: 4px; background: #1a1a1b; border: 1px solid #333; border-radius: 6px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); min-width: 180px; max-height: 70vh; overflow-y: auto; z-index: 1000;">
+                                        <a href="https://minigamesville.com/en/games/minibattles/" data-lang-switch="en" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; background: rgba(255,255,255,0.1);" onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/us.png" alt="English" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>English</span>
+                                                <svg width="16" height="16" fill="#4f9eff" viewBox="0 0 24 24" style="margin-left: auto;">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                                            </a>
+                                        <a href="https://minigamesville.com/sq/games/minibattles/" data-lang-switch="sq" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/al.png" alt="Albanian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Shqip</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/bn/games/minibattles/" data-lang-switch="bn" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/bd.png" alt="Bengali" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>বাংলা</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/bg/games/minibattles/" data-lang-switch="bg" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/bg.png" alt="Bulgarian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Български</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/zh/games/minibattles/" data-lang-switch="zh" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/cn.png" alt="Chinese (Simplified)" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>简体中文</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/hr/games/minibattles/" data-lang-switch="hr" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/hr.png" alt="Croatian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Hrvatski</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/cs/games/minibattles/" data-lang-switch="cs" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/cz.png" alt="Czech" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Čeština</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/da/games/minibattles/" data-lang-switch="da" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/dk.png" alt="Danish" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Dansk</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/nl/games/minibattles/" data-lang-switch="nl" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/nl.png" alt="Dutch" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Nederlands</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/fi/games/minibattles/" data-lang-switch="fi" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/fi.png" alt="Finnish" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Suomi</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/el/games/minibattles/" data-lang-switch="el" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/gr.png" alt="Greek" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Ελληνικά</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/hi/games/minibattles/" data-lang-switch="hi" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/in.png" alt="Hindi" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>हिन्दी</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/hu/games/minibattles/" data-lang-switch="hu" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/hu.png" alt="Hungarian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Magyar</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/id/games/minibattles/" data-lang-switch="id" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/id.png" alt="Indonesian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Bahasa Indonesia</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ja/games/minibattles/" data-lang-switch="ja" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/jp.png" alt="Japanese" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>日本語</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ko/games/minibattles/" data-lang-switch="ko" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/kr.png" alt="Korean" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>한국어</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/lt/games/minibattles/" data-lang-switch="lt" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/lt.png" alt="Lithuanian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Lietuvių</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ms/games/minibattles/" data-lang-switch="ms" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/my.png" alt="Malay" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Bahasa Melayu</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/no/games/minibattles/" data-lang-switch="no" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/no.png" alt="Norwegian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Norsk</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/pl/games/minibattles/" data-lang-switch="pl" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/pl.png" alt="Polish" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Polski</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/pt/games/minibattles/" data-lang-switch="pt" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/br.png" alt="Portuguese (Brazil)" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Português do Brasil</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ro/games/minibattles/" data-lang-switch="ro" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/ro.png" alt="Romanian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Română</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/sk/games/minibattles/" data-lang-switch="sk" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/sk.png" alt="Slovak" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Slovenčina</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/sl/games/minibattles/" data-lang-switch="sl" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/si.png" alt="Slovenian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Slovenščina</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/sv/games/minibattles/" data-lang-switch="sv" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/se.png" alt="Swedish" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Svenska</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/th/games/minibattles/" data-lang-switch="th" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/th.png" alt="Thai" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>ไทย</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/tr/games/minibattles/" data-lang-switch="tr" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/tr.png" alt="Turkish" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Türkçe</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/uk/games/minibattles/" data-lang-switch="uk" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/ua.png" alt="Ukrainian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Українська</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ur/games/minibattles/" data-lang-switch="ur" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/pk.png" alt="Urdu" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>اردو</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/vi/games/minibattles/" data-lang-switch="vi" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/vn.png" alt="Vietnamese" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Tiếng Việt</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/zu/games/minibattles/" data-lang-switch="zu" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/za.png" alt="Zulu" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>isiZulu</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/es/games/minibattles/" data-lang-switch="es" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/es.png" alt="Spanish" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Español</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/fr/games/minibattles/" data-lang-switch="fr" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/fr.png" alt="French" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Français</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/de/games/minibattles/" data-lang-switch="de" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/de.png" alt="German" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Deutsch</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ar/games/minibattles/" data-lang-switch="ar" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/sa.png" alt="Arabic" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>العربية</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/it/games/minibattles/" data-lang-switch="it" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/it.png" alt="Italian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Italiano</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/fa/games/minibattles/" data-lang-switch="fa" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/ir.png" alt="Persian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>فارسی</span>
+                                            </a>
+                                        <a href="https://minigamesville.com/ru/games/minibattles/" data-lang-switch="ru" style="display: flex; align-items: center; gap: 8px; padding: 8px 12px; text-decoration: none; color: #fff; " onmouseover="this.style.background='rgba(255,255,255,0.15)'" onmouseout="this.style.background='transparent'">
+                        <img src="https://minigamesville.com/wp-content/uploads/flags/ru.png" alt="Russian" style="width: 20px; height: 15px; object-fit: cover;">
+                        <span>Русский</span>
+                                            </a>
+                                    </div>
+            </div>
+            
+            <!-- Mobile Header Icons -->
+            <div class="mobile-header-icons" style="display: none; align-items: center; gap: 8px;">
+                <!-- Mobile Search Icon -->
+                <button class="mobile-icon-btn" id="mobile-search-btn" onclick="toggleMobileSearch()" aria-label="Search">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+
+                <!-- Mobile Language Icon -->
+                                <button class="mobile-icon-btn" id="mobile-lang-btn" onclick="toggleMobileLang()" aria-label="Language">
+                                        <img src="https://minigamesville.com/wp-content/uploads/flags/us.png" alt="English" style="width: 20px; height: 15px; object-fit: cover;">
+                                    </button>
+                            </div>
+
+            <!-- Right-side hamburger (DESKTOP ONLY - hidden on mobile) -->
+                    </div>
+    </div>
+
+    <!-- Mobile Search Overlay -->
+    <div class="mobile-search-overlay" id="mobile-search-overlay">
+        <form role="search" method="get" action="https://minigamesville.com/" onsubmit="return validateSearch(this)">
+            <div style="position: relative;">
+                <input type="search"
+                       style="width: 100%; padding: 12px 50px 12px 16px; border-radius: 8px; background: white; border: none; color: #333; outline: none; font-size: 16px; box-sizing: border-box;"
+                       placeholder="Search games..."
+                       value=""
+                       name="s"
+                       id="mobile-search-input"
+                       autocomplete="off">
+
+                <button type="submit"
+                        style="position: absolute; right: 8px; top: 8px; bottom: 8px; padding: 8px; background: #1e3a8a; border: none; color: white; cursor: pointer; display: flex; align-items: center; justify-content: center; width: 40px; border-radius: 6px;">
+                    <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Mobile Language Overlay -->
+        <div class="mobile-lang-overlay" id="mobile-lang-overlay">
+        <div style="padding: 12px 15px; border-bottom: 1px solid #333; font-weight: 600; color: #fff; background: #222;">
+            Select Language        </div>
+                <a href="https://minigamesville.com/en/games/minibattles/"
+           data-lang-switch="en"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; background: rgba(255,255,255,0.1);"
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/us.png" alt="English" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">English</span>
+                        <svg width="20" height="20" fill="#2196F3" viewBox="0 0 24 24">
+                <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+                    </a>
+                <a href="https://minigamesville.com/sq/games/minibattles/"
+           data-lang-switch="sq"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/al.png" alt="Albanian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Shqip</span>
+                    </a>
+                <a href="https://minigamesville.com/bn/games/minibattles/"
+           data-lang-switch="bn"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/bd.png" alt="Bengali" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">বাংলা</span>
+                    </a>
+                <a href="https://minigamesville.com/bg/games/minibattles/"
+           data-lang-switch="bg"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/bg.png" alt="Bulgarian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Български</span>
+                    </a>
+                <a href="https://minigamesville.com/zh/games/minibattles/"
+           data-lang-switch="zh"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/cn.png" alt="Chinese (Simplified)" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">简体中文</span>
+                    </a>
+                <a href="https://minigamesville.com/hr/games/minibattles/"
+           data-lang-switch="hr"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/hr.png" alt="Croatian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Hrvatski</span>
+                    </a>
+                <a href="https://minigamesville.com/cs/games/minibattles/"
+           data-lang-switch="cs"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/cz.png" alt="Czech" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Čeština</span>
+                    </a>
+                <a href="https://minigamesville.com/da/games/minibattles/"
+           data-lang-switch="da"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/dk.png" alt="Danish" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Dansk</span>
+                    </a>
+                <a href="https://minigamesville.com/nl/games/minibattles/"
+           data-lang-switch="nl"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/nl.png" alt="Dutch" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Nederlands</span>
+                    </a>
+                <a href="https://minigamesville.com/fi/games/minibattles/"
+           data-lang-switch="fi"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/fi.png" alt="Finnish" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Suomi</span>
+                    </a>
+                <a href="https://minigamesville.com/el/games/minibattles/"
+           data-lang-switch="el"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/gr.png" alt="Greek" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Ελληνικά</span>
+                    </a>
+                <a href="https://minigamesville.com/hi/games/minibattles/"
+           data-lang-switch="hi"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/in.png" alt="Hindi" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">हिन्दी</span>
+                    </a>
+                <a href="https://minigamesville.com/hu/games/minibattles/"
+           data-lang-switch="hu"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/hu.png" alt="Hungarian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Magyar</span>
+                    </a>
+                <a href="https://minigamesville.com/id/games/minibattles/"
+           data-lang-switch="id"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/id.png" alt="Indonesian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Bahasa Indonesia</span>
+                    </a>
+                <a href="https://minigamesville.com/ja/games/minibattles/"
+           data-lang-switch="ja"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/jp.png" alt="Japanese" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">日本語</span>
+                    </a>
+                <a href="https://minigamesville.com/ko/games/minibattles/"
+           data-lang-switch="ko"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/kr.png" alt="Korean" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">한국어</span>
+                    </a>
+                <a href="https://minigamesville.com/lt/games/minibattles/"
+           data-lang-switch="lt"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/lt.png" alt="Lithuanian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Lietuvių</span>
+                    </a>
+                <a href="https://minigamesville.com/ms/games/minibattles/"
+           data-lang-switch="ms"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/my.png" alt="Malay" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Bahasa Melayu</span>
+                    </a>
+                <a href="https://minigamesville.com/no/games/minibattles/"
+           data-lang-switch="no"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/no.png" alt="Norwegian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Norsk</span>
+                    </a>
+                <a href="https://minigamesville.com/pl/games/minibattles/"
+           data-lang-switch="pl"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/pl.png" alt="Polish" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Polski</span>
+                    </a>
+                <a href="https://minigamesville.com/pt/games/minibattles/"
+           data-lang-switch="pt"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/br.png" alt="Portuguese (Brazil)" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Português do Brasil</span>
+                    </a>
+                <a href="https://minigamesville.com/ro/games/minibattles/"
+           data-lang-switch="ro"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/ro.png" alt="Romanian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Română</span>
+                    </a>
+                <a href="https://minigamesville.com/sk/games/minibattles/"
+           data-lang-switch="sk"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/sk.png" alt="Slovak" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Slovenčina</span>
+                    </a>
+                <a href="https://minigamesville.com/sl/games/minibattles/"
+           data-lang-switch="sl"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/si.png" alt="Slovenian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Slovenščina</span>
+                    </a>
+                <a href="https://minigamesville.com/sv/games/minibattles/"
+           data-lang-switch="sv"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/se.png" alt="Swedish" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Svenska</span>
+                    </a>
+                <a href="https://minigamesville.com/th/games/minibattles/"
+           data-lang-switch="th"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/th.png" alt="Thai" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">ไทย</span>
+                    </a>
+                <a href="https://minigamesville.com/tr/games/minibattles/"
+           data-lang-switch="tr"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/tr.png" alt="Turkish" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Türkçe</span>
+                    </a>
+                <a href="https://minigamesville.com/uk/games/minibattles/"
+           data-lang-switch="uk"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/ua.png" alt="Ukrainian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Українська</span>
+                    </a>
+                <a href="https://minigamesville.com/ur/games/minibattles/"
+           data-lang-switch="ur"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/pk.png" alt="Urdu" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">اردو</span>
+                    </a>
+                <a href="https://minigamesville.com/vi/games/minibattles/"
+           data-lang-switch="vi"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/vn.png" alt="Vietnamese" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Tiếng Việt</span>
+                    </a>
+                <a href="https://minigamesville.com/zu/games/minibattles/"
+           data-lang-switch="zu"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/za.png" alt="Zulu" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">isiZulu</span>
+                    </a>
+                <a href="https://minigamesville.com/es/games/minibattles/"
+           data-lang-switch="es"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/es.png" alt="Spanish" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Español</span>
+                    </a>
+                <a href="https://minigamesville.com/fr/games/minibattles/"
+           data-lang-switch="fr"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/fr.png" alt="French" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Français</span>
+                    </a>
+                <a href="https://minigamesville.com/de/games/minibattles/"
+           data-lang-switch="de"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/de.png" alt="German" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Deutsch</span>
+                    </a>
+                <a href="https://minigamesville.com/ar/games/minibattles/"
+           data-lang-switch="ar"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/sa.png" alt="Arabic" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">العربية</span>
+                    </a>
+                <a href="https://minigamesville.com/it/games/minibattles/"
+           data-lang-switch="it"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/it.png" alt="Italian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Italiano</span>
+                    </a>
+                <a href="https://minigamesville.com/fa/games/minibattles/"
+           data-lang-switch="fa"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/ir.png" alt="Persian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">فارسی</span>
+                    </a>
+                <a href="https://minigamesville.com/ru/games/minibattles/"
+           data-lang-switch="ru"
+           style="display: flex; align-items: center; gap: 12px; padding: 12px 15px; text-decoration: none; color: #fff; border-bottom: 1px solid #333; "
+           onclick="closeMobileLang()">
+            <img src="https://minigamesville.com/wp-content/uploads/flags/ru.png" alt="Russian" style="width: 24px; height: 18px; object-fit: cover; border-radius: 2px;">
+            <span style="flex: 1;">Русский</span>
+                    </a>
+            </div>
+    </header>
+
+<script>
+// Desktop language dropdown
+function toggleLangDropdown() {
+    const dropdown = document.getElementById('lang-dropdown');
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+}
+
+// Mobile search toggle - INP optimized
+function toggleMobileSearch() {
+    const btn = document.getElementById('mobile-search-btn');
+
+    // INSTANT visual feedback on button (what INP measures)
+    btn.style.transform = 'scale(0.95)';
+
+    // Yield to browser, then do the rest
+    requestAnimationFrame(function() {
+        btn.style.transform = '';
+
+        const overlay = document.getElementById('mobile-search-overlay');
+        const input = document.getElementById('mobile-search-input');
+
+        overlay.classList.toggle('active');
+        btn.classList.toggle('active');
+
+        // Close language overlay if open
+        document.getElementById('mobile-lang-overlay')?.classList.remove('active');
+        document.getElementById('mobile-lang-btn')?.classList.remove('active');
+
+        // Focus on input when opened (deferred)
+        if (overlay.classList.contains('active')) {
+            setTimeout(function() { input.focus(); }, 100);
+        }
+    });
+}
+
+// Mobile language toggle - INP optimized
+function toggleMobileLang() {
+    const btn = document.getElementById('mobile-lang-btn');
+
+    // INSTANT visual feedback on button (what INP measures)
+    btn.style.transform = 'scale(0.95)';
+
+    // Yield to browser, then do the rest
+    requestAnimationFrame(function() {
+        btn.style.transform = '';
+
+        const overlay = document.getElementById('mobile-lang-overlay');
+
+        overlay.classList.toggle('active');
+        btn.classList.toggle('active');
+
+        // Close search overlay if open
+        document.getElementById('mobile-search-overlay')?.classList.remove('active');
+        document.getElementById('mobile-search-btn')?.classList.remove('active');
+    });
+}
+
+function closeMobileLang() {
+    document.getElementById('mobile-lang-overlay')?.classList.remove('active');
+    document.getElementById('mobile-lang-btn')?.classList.remove('active');
+}
+
+// Close dropdowns when clicking outside
+document.addEventListener('click', function(event) {
+    // Desktop language dropdown
+    const switcher = document.querySelector('.language-switcher');
+    if (switcher && !switcher.contains(event.target)) {
+        document.getElementById('lang-dropdown').style.display = 'none';
+    }
+
+    // Mobile overlays
+    const searchOverlay = document.getElementById('mobile-search-overlay');
+    const searchBtn = document.getElementById('mobile-search-btn');
+    const langOverlay = document.getElementById('mobile-lang-overlay');
+    const langBtn = document.getElementById('mobile-lang-btn');
+
+    // Close search if clicking outside
+    if (searchOverlay && searchOverlay.classList.contains('active') &&
+        !searchOverlay.contains(event.target) && !searchBtn.contains(event.target)) {
+        searchOverlay.classList.remove('active');
+        searchBtn.classList.remove('active');
+    }
+
+    // Close lang if clicking outside
+    if (langOverlay && langOverlay.classList.contains('active') &&
+        !langOverlay.contains(event.target) && !langBtn.contains(event.target)) {
+        langOverlay.classList.remove('active');
+        langBtn.classList.remove('active');
+    }
+});
+
+// Language switcher: set cookie when user clicks a language in the dropdown
+document.addEventListener('click', function(e) {
+    var link = e.target.closest('[data-lang-switch]');
+    if (link) {
+        document.cookie = 'multilang_preferred=' + link.getAttribute('data-lang-switch') + ';path=/;max-age=31536000;SameSite=Lax';
+    }
+});
+
+// Validate search form
+function validateSearch(form) {
+    const input = form.querySelector('input[name="s"]');
+    if (!input.value.trim()) {
+        input.focus();
+        return false;
+    }
+    return true;
+}
+</script>
+    <main id="main" class="site-main" style="min-height: 100vh; background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); padding: 2rem;">
+        
+        <!-- 404 Error Content -->
+        <div style="text-align: center; margin-bottom: 2rem; color: white; max-width: 800px; margin: 0 auto; padding: 60px 20px;">
+            
+            <!-- 404 Header -->
+            <div style="margin-bottom: 3rem;">
+                <h1 style="font-size: 8rem; font-weight: bold; margin: 0; color: #4f46e5; text-shadow: 0 4px 20px rgba(79, 70, 229, 0.5); line-height: 1;">
+                    404
+                </h1>
+                <h2 style="font-size: 2.5rem; font-weight: bold; margin: 20px 0; color: #e2e8f0;">
+                    Page Not Found                </h2>
+                <p style="color: #94a3b8; font-size: 1.2rem; margin-bottom: 2rem; line-height: 1.6;">
+                    Oops! The game you're looking for seems to have disappeared into the digital void. But don't worry - we've got plenty more games waiting for you!                </p>
+            </div>
+
+            <!-- Gaming-themed 404 Icon -->
+            <div style="font-size: 6rem; margin: 2rem 0; opacity: 0.7; animation: bounce 2s infinite;">
+                🎮
+            </div>
+
+            <!-- Action Buttons -->
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin: 3rem 0;">
+                <a href="https://minigamesville.com/" 
+                   style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #4f46e5, #7c3aed); color: white; padding: 14px 28px; border-radius: 10px; text-decoration: none; font-weight: 600; font-size: 1.1rem; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(79, 70, 229, 0.4);"
+                   onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(79, 70, 229, 0.6)';"
+                   onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(79, 70, 229, 0.4)';">
+                    🏠 <span>Back to Home</span>
+                </a>
+                
+                <button onclick="history.back()" 
+                        style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #64748b, #475569); color: white; padding: 14px 28px; border-radius: 10px; border: none; font-weight: 600; font-size: 1.1rem; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(100, 116, 139, 0.4);"
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 25px rgba(100, 116, 139, 0.6)';"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(100, 116, 139, 0.4)';">
+                    ← <span>Go Back</span>
+                </button>
+            </div>
+
+            <!-- Popular Categories -->
+            <div style="margin-top: 4rem; text-align: left;">
+                <h3 style="color: #e2e8f0; font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem; text-align: center;">
+                    🎯 Try These Popular Game Categories                </h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; max-width: 600px; margin: 0 auto;">
+                                                <a href="https://minigamesville.com/c/casual-games/" 
+                               style="display: block; background: rgba(30, 41, 59, 0.8); padding: 1rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(79, 70, 229, 0.3); transition: all 0.3s ease;"
+                               onmouseover="this.style.background='rgba(30, 41, 59, 1)'; this.style.borderColor='rgba(79, 70, 229, 0.6)'; this.style.transform='translateY(-2px)';"
+                               onmouseout="this.style.background='rgba(30, 41, 59, 0.8)'; this.style.borderColor='rgba(79, 70, 229, 0.3)'; this.style.transform='translateY(0)';">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #e2e8f0; font-weight: 500;">Casual Games</span>
+                                    <span style="background: rgba(79, 70, 229, 0.2); color: #a5b4fc; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                                        1975 games
+                                    </span>
+                                </div>
+                            </a>
+                                                        <a href="https://minigamesville.com/c/arcade-games/" 
+                               style="display: block; background: rgba(30, 41, 59, 0.8); padding: 1rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(79, 70, 229, 0.3); transition: all 0.3s ease;"
+                               onmouseover="this.style.background='rgba(30, 41, 59, 1)'; this.style.borderColor='rgba(79, 70, 229, 0.6)'; this.style.transform='translateY(-2px)';"
+                               onmouseout="this.style.background='rgba(30, 41, 59, 0.8)'; this.style.borderColor='rgba(79, 70, 229, 0.3)'; this.style.transform='translateY(0)';">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #e2e8f0; font-weight: 500;">Arcade Games</span>
+                                    <span style="background: rgba(79, 70, 229, 0.2); color: #a5b4fc; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                                        1199 games
+                                    </span>
+                                </div>
+                            </a>
+                                                        <a href="https://minigamesville.com/c/puzzle-games/" 
+                               style="display: block; background: rgba(30, 41, 59, 0.8); padding: 1rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(79, 70, 229, 0.3); transition: all 0.3s ease;"
+                               onmouseover="this.style.background='rgba(30, 41, 59, 1)'; this.style.borderColor='rgba(79, 70, 229, 0.6)'; this.style.transform='translateY(-2px)';"
+                               onmouseout="this.style.background='rgba(30, 41, 59, 0.8)'; this.style.borderColor='rgba(79, 70, 229, 0.3)'; this.style.transform='translateY(0)';">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #e2e8f0; font-weight: 500;">Puzzle Games</span>
+                                    <span style="background: rgba(79, 70, 229, 0.2); color: #a5b4fc; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                                        896 games
+                                    </span>
+                                </div>
+                            </a>
+                                                        <a href="https://minigamesville.com/c/action-games/" 
+                               style="display: block; background: rgba(30, 41, 59, 0.8); padding: 1rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(79, 70, 229, 0.3); transition: all 0.3s ease;"
+                               onmouseover="this.style.background='rgba(30, 41, 59, 1)'; this.style.borderColor='rgba(79, 70, 229, 0.6)'; this.style.transform='translateY(-2px)';"
+                               onmouseout="this.style.background='rgba(30, 41, 59, 0.8)'; this.style.borderColor='rgba(79, 70, 229, 0.3)'; this.style.transform='translateY(0)';">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #e2e8f0; font-weight: 500;">Action Games</span>
+                                    <span style="background: rgba(79, 70, 229, 0.2); color: #a5b4fc; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                                        532 games
+                                    </span>
+                                </div>
+                            </a>
+                                                        <a href="https://minigamesville.com/c/platformer-games/" 
+                               style="display: block; background: rgba(30, 41, 59, 0.8); padding: 1rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(79, 70, 229, 0.3); transition: all 0.3s ease;"
+                               onmouseover="this.style.background='rgba(30, 41, 59, 1)'; this.style.borderColor='rgba(79, 70, 229, 0.6)'; this.style.transform='translateY(-2px)';"
+                               onmouseout="this.style.background='rgba(30, 41, 59, 0.8)'; this.style.borderColor='rgba(79, 70, 229, 0.3)'; this.style.transform='translateY(0)';">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #e2e8f0; font-weight: 500;">Platformer Games</span>
+                                    <span style="background: rgba(79, 70, 229, 0.2); color: #a5b4fc; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                                        421 games
+                                    </span>
+                                </div>
+                            </a>
+                                                        <a href="https://minigamesville.com/c/endless-runner-games/" 
+                               style="display: block; background: rgba(30, 41, 59, 0.8); padding: 1rem; border-radius: 8px; text-decoration: none; border: 1px solid rgba(79, 70, 229, 0.3); transition: all 0.3s ease;"
+                               onmouseover="this.style.background='rgba(30, 41, 59, 1)'; this.style.borderColor='rgba(79, 70, 229, 0.6)'; this.style.transform='translateY(-2px)';"
+                               onmouseout="this.style.background='rgba(30, 41, 59, 0.8)'; this.style.borderColor='rgba(79, 70, 229, 0.3)'; this.style.transform='translateY(0)';">
+                                <div style="display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="color: #e2e8f0; font-weight: 500;">Endless Runner Games</span>
+                                    <span style="background: rgba(79, 70, 229, 0.2); color: #a5b4fc; padding: 4px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 500;">
+                                        328 games
+                                    </span>
+                                </div>
+                            </a>
+                                            </div>
+            </div>
+
+            <!-- Search Suggestion -->
+            <div style="margin-top: 3rem; padding: 2rem; background: rgba(30, 41, 59, 0.5); border-radius: 12px; border: 1px solid rgba(79, 70, 229, 0.2);">
+                <h3 style="color: #e2e8f0; font-size: 1.3rem; font-weight: bold; margin-bottom: 1rem;">
+                    🔍 Can't find what you're looking for?                </h3>
+                <p style="color: #94a3b8; margin-bottom: 1.5rem; line-height: 1.6;">
+                    Try using the search bar above to find specific games, or browse through our categories in the sidebar.                </p>
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <!-- Game category suggestions removed - actual categories are shown above -->
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+</div>
+
+<style>
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+</style>
+
+<script>
+// Prevent empty search submissions
+function validateSearch(form) {
+    const searchInput = form.querySelector('input[name="s"]');
+    const searchTerm = searchInput.value.trim();
+    
+    if (searchTerm === '') {
+        // Add visual feedback
+        searchInput.style.boxShadow = '0 0 0 2px #ef4444';
+        setTimeout(() => {
+            searchInput.style.boxShadow = '';
+        }, 2000);
+        return false; // Prevent form submission
+    }
+    
+    return true; // Allow form submission
+}
+
+function toggleDropdown(dropdownId) {
+    const dropdown = document.getElementById(dropdownId);
+    const menu = document.getElementById(dropdownId + '-menu');
+    
+    if (menu.style.display === 'none' || menu.style.display === '') {
+        // Close all other dropdowns first
+        document.querySelectorAll('[id$="-dropdown-menu"]').forEach(otherMenu => {
+            if (otherMenu !== menu) {
+                otherMenu.style.display = 'none';
+            }
+        });
+        menu.style.display = 'block';
+    } else {
+        menu.style.display = 'none';
+    }
+}
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdowns = document.querySelectorAll('[id$="-dropdown"]');
+    
+    dropdowns.forEach(dropdown => {
+        const menu = document.getElementById(dropdown.id + '-menu');
+        if (menu && !dropdown.contains(event.target)) {
+            menu.style.display = 'none';
+        }
+    });
+});
+
+// Load external header.js for hamburger functionality
+</script>
+
+<!-- Include Sidebar if Enabled -->
+
+<div class="onlinegames-vertical-sidebar" id="categories-sidebar" style="
+    position: fixed;
+    left: 0;    top: 80px;
+    bottom: 0;
+    width: 60px;
+    background: linear-gradient(165deg, #1e3a8a, #212233);
+    z-index: 999;
+    overflow-y: auto;
+    transition: width 0.3s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+">
+    
+    <!-- Home -->
+    <div class="sidebar-item ">
+        <a href="https://minigamesville.com/" class="sidebar-link">
+            <span class="sidebar-icon">🏠</span>
+            <span class="sidebar-text">Home</span>
+        </a>
+    </div>
+
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/io-games/" class="sidebar-link">
+                <span class="sidebar-icon">🌐</span>
+                <span class="sidebar-text">.io Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/2-player-games/" class="sidebar-link">
+                <span class="sidebar-icon">👥</span>
+                <span class="sidebar-text">2 Player Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/action-games/" class="sidebar-link">
+                <span class="sidebar-icon">⚡</span>
+                <span class="sidebar-text">Action Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/action-mini-games/" class="sidebar-link">
+                <span class="sidebar-icon">🎮</span>
+                <span class="sidebar-text">Action Mini Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/adventure-games/" class="sidebar-link">
+                <span class="sidebar-icon">🗺️</span>
+                <span class="sidebar-text">Adventure Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/arcade-games/" class="sidebar-link">
+                <span class="sidebar-icon">🕹️</span>
+                <span class="sidebar-text">Arcade Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/bike-mini-games/" class="sidebar-link">
+                <span class="sidebar-icon">🎮</span>
+                <span class="sidebar-text">Bike Mini Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/board-games/" class="sidebar-link">
+                <span class="sidebar-icon">🎲</span>
+                <span class="sidebar-text">Board Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/car-games/" class="sidebar-link">
+                <span class="sidebar-icon">🚗</span>
+                <span class="sidebar-text">Car Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/card-games/" class="sidebar-link">
+                <span class="sidebar-icon">🃏</span>
+                <span class="sidebar-text">Card Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/casual-games/" class="sidebar-link">
+                <span class="sidebar-icon">☁️</span>
+                <span class="sidebar-text">Casual Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/clicker-games/" class="sidebar-link">
+                <span class="sidebar-icon">👆</span>
+                <span class="sidebar-text">Clicker Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/cooking-games/" class="sidebar-link">
+                <span class="sidebar-icon">👨‍🍳</span>
+                <span class="sidebar-text">Cooking Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/decoration-games/" class="sidebar-link">
+                <span class="sidebar-icon">🎨</span>
+                <span class="sidebar-text">Decoration Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/dress-up-games/" class="sidebar-link">
+                <span class="sidebar-icon">👗</span>
+                <span class="sidebar-text">Dress Up Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/driving-games/" class="sidebar-link">
+                <span class="sidebar-icon">🚙</span>
+                <span class="sidebar-text">Driving Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/endless-runner-games/" class="sidebar-link">
+                <span class="sidebar-icon">🏃</span>
+                <span class="sidebar-text">Endless Runner Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/escape-games/" class="sidebar-link">
+                <span class="sidebar-icon">🚪</span>
+                <span class="sidebar-text">Escape Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/fighting-games/" class="sidebar-link">
+                <span class="sidebar-icon">👊</span>
+                <span class="sidebar-text">Fighting Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/girl-games/" class="sidebar-link">
+                <span class="sidebar-icon">👧</span>
+                <span class="sidebar-text">Girl Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/girls-mini-games/" class="sidebar-link">
+                <span class="sidebar-icon">🎮</span>
+                <span class="sidebar-text">Girls Mini Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/multiplayer-games/" class="sidebar-link">
+                <span class="sidebar-icon">👥</span>
+                <span class="sidebar-text">Multiplayer Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/new-mini-games/" class="sidebar-link">
+                <span class="sidebar-icon">✨</span>
+                <span class="sidebar-text">New Mini Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/platformer-games/" class="sidebar-link">
+                <span class="sidebar-icon">🪜</span>
+                <span class="sidebar-text">Platformer Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/puzzle-games/" class="sidebar-link">
+                <span class="sidebar-icon">🧩</span>
+                <span class="sidebar-text">Puzzle Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/racing-games/" class="sidebar-link">
+                <span class="sidebar-icon">🏁</span>
+                <span class="sidebar-text">Racing Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/shooting-games/" class="sidebar-link">
+                <span class="sidebar-icon">🔫</span>
+                <span class="sidebar-text">Shooting Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/simulation-games/" class="sidebar-link">
+                <span class="sidebar-icon">🎯</span>
+                <span class="sidebar-text">Simulation Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/sports-games/" class="sidebar-link">
+                <span class="sidebar-icon">⚽</span>
+                <span class="sidebar-text">Sports Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/stickman-games/" class="sidebar-link">
+                <span class="sidebar-icon">🚶</span>
+                <span class="sidebar-text">Stickman Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/strategy-games/" class="sidebar-link">
+                <span class="sidebar-icon">♟️</span>
+                <span class="sidebar-text">Strategy Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/tower-defense-games/" class="sidebar-link">
+                <span class="sidebar-icon">🏰</span>
+                <span class="sidebar-text">Tower Defense Games</span>
+            </a>
+        </div>
+            <div class="sidebar-item ">
+            <a href="https://minigamesville.com/c/trending-games/" class="sidebar-link">
+                <span class="sidebar-icon">🔥</span>
+                <span class="sidebar-text">Trending Games</span>
+            </a>
+        </div>
+    
+</div>
+
+<style>
+/* OnlineGames.io Style Vertical Sidebar - Dynamic */
+.onlinegames-vertical-sidebar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.onlinegames-vertical-sidebar::-webkit-scrollbar {
+    display: none; /* WebKit */
+}
+
+.onlinegames-vertical-sidebar:hover {
+    width: 260px !important;
+}
+
+.sidebar-item {
+    position: relative;
+    margin-bottom: 2px;
+}
+
+.sidebar-link {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    text-decoration: none;
+    color: rgba(255,255,255, 0.8);
+    transition: all 0.2s ease;
+    border-radius: 0;
+    position: relative;
+    min-height: 48px;
+}
+
+.sidebar-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.sidebar-icon-img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.sidebar-text {
+    margin-left: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.2s ease;
+    overflow: visible;
+    font-size: 14px;
+    text-overflow: clip;
+}
+
+/* Show text on sidebar hover */
+.onlinegames-vertical-sidebar:hover .sidebar-text {
+    opacity: 1;
+    transform: translateX(0);
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+}
+
+/* Hover effects */
+.sidebar-link:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+.sidebar-link:hover .sidebar-icon {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+/* Active state */
+.sidebar-item.active .sidebar-link {
+    background: rgba(79,158,255, 0.2);
+    color: #4f9eff;
+    border-left: 3px solid #4f9eff;
+}
+
+.sidebar-item.active .sidebar-icon {
+    background: rgba(79,158,255, 0.3);
+    color: #4f9eff;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .onlinegames-vertical-sidebar {
+        width: 60px !important;
+    }
+    
+    .onlinegames-vertical-sidebar:hover {
+        width: 200px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .onlinegames-vertical-sidebar {
+        width: 50px !important;
+        top: 60px !important;
+    }
+    
+    .onlinegames-vertical-sidebar:hover {
+        width: 180px !important;
+    }
+    
+    .sidebar-icon {
+        font-size: 18px;
+        width: 32px;
+        height: 32px;
+    }
+}
+</style>
+    </main>
+
+    <footer class="site-footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content py-4 text-center">
+                <!-- Custom Footer Menu -->
+                <div class="footer-menu text-sm text-muted">
+                    <p class="mb-0"><a href="https://minigamesville.com/about-us/" class="text-muted hover:text-white transition-colors">About us</a> | <a href="https://minigamesville.com/contact-us/" class="text-muted hover:text-white transition-colors">Contact us</a> | <a href="https://minigamesville.com/dmca/" class="text-muted hover:text-white transition-colors">DMCA</a> | <a href="https://minigamesville.com/informations-for-parents/" class="text-muted hover:text-white transition-colors">Informations for parents</a> | <a href="https://minigamesville.com/privacy-policy/" class="text-muted hover:text-white transition-colors">Privacy policy</a> | <a href="https://minigamesville.com/terms-of-use/" class="text-muted hover:text-white transition-colors">Terms of use</a> | All rights reserved © minigamesville.com</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+</div><!-- #page -->
+
+    <script>
+    /* hybrid-ad-no-delay */
+    (function(){
+        var w = window.innerWidth;
+        var isSingle = document.body.classList.contains('single');
+        var chinaEnabled = false;
+
+        function destroy(selector) {
+            var els = document.querySelectorAll(selector);
+            for (var i = 0; i < els.length; i++) {
+                els[i].parentNode.removeChild(els[i]);
+            }
+        }
+
+        // Inject a HilltopAds script inside an isolated iframe.
+        // The iframe prevents document.write from wiping our main page AND
+        // avoids WP Hummingbird's HTML rewriter from tampering with the script tag
+        // (if we used srcdoc with a literal <script>, Hummingbird would add
+        // type="wphb-delay-type" to it and the browser would never execute it
+        // inside the iframe where Hummingbird's runtime doesn't exist).
+        function injectHilltopAd(container, overrideSrc) {
+            var src = overrideSrc || container.getAttribute('data-hilltopads-src');
+            if (!src || container.getAttribute('data-ht-loaded')) return;
+            container.setAttribute('data-ht-loaded', '1');
+
+            // Read exact dimensions from PHP-rendered data attributes
+            // (offsetWidth/Height can be wrong when the container is small or not yet laid out)
+            var w = parseInt(container.getAttribute('data-w'), 10) || container.offsetWidth || 300;
+            var h = parseInt(container.getAttribute('data-h'), 10) || container.offsetHeight || 250;
+
+            var iframe = document.createElement('iframe');
+            iframe.style.cssText = 'width:' + w + 'px;height:' + h + 'px;border:0;display:block;';
+            iframe.setAttribute('scrolling', 'no');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('referrerpolicy', 'no-referrer-when-downgrade');
+            // about:blank iframe — we'll write content via JS after attach
+            container.appendChild(iframe);
+            try {
+                var doc = iframe.contentDocument || iframe.contentWindow.document;
+                doc.open();
+                // Build script element in the iframe's JS context — never passes
+                // through the parent page's HTML, so Hummingbird can't touch it.
+                doc.write('<!doctype html><html><head><meta charset="utf-8"><style>html,body{margin:0;padding:0;overflow:hidden}</style></head><body></body></html>');
+                doc.close();
+                var s = doc.createElement('script');
+                s.src = src;
+                s.async = true;
+                s.referrerPolicy = 'no-referrer-when-downgrade';
+                doc.body.appendChild(s);
+            } catch (e) {
+                // If iframe access fails (shouldn't — same origin), the iframe just stays empty
+            }
+        }
+
+        // Hide all non-HilltopAds children inside an ad container
+        function hideAdsenseContent(container) {
+            var children = container.childNodes;
+            for (var c = 0; c < children.length; c++) {
+                var child = children[c];
+                if (child.nodeType === 1 && !child.classList.contains('hilltopads-fallback')) {
+                    child.style.display = 'none';
+                }
+            }
+        }
+
+        // Load the HilltopAds popunder script + bind a play-button fallback trigger.
+        // Called from the China path always; also from the default path when
+        // popunder_global_enabled is on.
+        var popunderLoaded = false;
+        function loadPopunder() {
+            if (popunderLoaded) return;
+            popunderLoaded = true;
+
+            // Load HilltopAds popunder script (hooks document clicks globally)
+            var ps = document.createElement('script');
+            ps.src = "https:\/\/minigamesville.com\/wp-content\/themes\/finaltheme\/assets\/vendor\/hilltopads-popunder.js";
+            ps.async = true;
+            ps.referrerPolicy = 'no-referrer-when-downgrade';
+            document.body.appendChild(ps);
+
+            // Backup trigger: play-button click opens popunder URL directly.
+            // Browser popup blockers trust window.open() called synchronously
+            // inside a real click handler — more reliable than async script detection.
+            var popUrl = 'https://watchful-beyond.com/b/3pV.0wPk3/pDvYbGm/VoJWZMDO0s2mOBT/Yux/NxzzYz5LLmTrYX5mNwjBEq3hNczgMomrcdn/NAy/Yuzo0-xKck3_RAwu';
+            var popFired = false;
+            var selector = '.desktop-play-btn';
+            var playButtons = document.querySelectorAll(selector);
+            playButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    if (popFired) return;
+                    popFired = true;
+                    var w = window.open(popUrl, '_blank');
+                    if (w) {
+                        try { w.blur(); window.focus(); } catch(e) {}
+                    }
+                }, { once: true });
+            });
+        }
+
+        function activateChinaAds() {
+            // Hide all AdSense content in every ad container
+            var htDivs = document.querySelectorAll('.hilltopads-fallback');
+            for (var h = 0; h < htDivs.length; h++) {
+                var parent = htDivs[h].parentNode;
+                // Safety: only hide content inside proper ad containers
+                if (parent && parent.className &&
+                    parent.className.indexOf('ad-container-') !== -1) {
+                    hideAdsenseContent(parent);
+                }
+                htDivs[h].style.display = 'block';
+                injectHilltopAd(htDivs[h]);
+            }
+            // Popunder always fires for Chinese users (no AdSense policy concern in CN)
+            loadPopunder();
+        }
+
+        function activateDefaultAds() {
+            // Push only surviving AdSense slots
+            var slots = document.querySelectorAll('ins.adsbygoogle');
+            for (var j = 0; j < slots.length; j++) {
+                if (!slots[j].getAttribute('data-adsbygoogle-status')) {
+                    (adsbygoogle = window.adsbygoogle || []).push({});
+                }
+            }
+                                }
+
+        // Single pages: destroy top banner
+        if (isSingle) {
+            destroy('.ad-container-top-banner');
+        }
+
+        // Side ad cascade
+        if (w > 1600) {
+            destroy(".ad-container-left-sidebar-160");
+            destroy(".ad-container-right-sidebar-160");
+            destroy(".ad-container-left-sidebar-120");
+            destroy(".ad-container-right-sidebar-120");
+        } else if (w > 1320) {
+            destroy(".ad-container-left-sidebar");
+            destroy(".ad-container-right-sidebar");
+            destroy(".ad-container-left-sidebar-bottom");
+            destroy(".ad-container-right-sidebar-bottom");
+            destroy(".ad-container-left-sidebar-120");
+            destroy(".ad-container-right-sidebar-120");
+        } else if (w > 1240) {
+            destroy(".ad-container-left-sidebar");
+            destroy(".ad-container-right-sidebar");
+            destroy(".ad-container-left-sidebar-bottom");
+            destroy(".ad-container-right-sidebar-bottom");
+            destroy(".ad-container-left-sidebar-160");
+            destroy(".ad-container-right-sidebar-160");
+        } else {
+            destroy(".ad-container-left-sidebar");
+            destroy(".ad-container-right-sidebar");
+            destroy(".ad-container-left-sidebar-bottom");
+            destroy(".ad-container-right-sidebar-bottom");
+            destroy(".ad-container-left-sidebar-160");
+            destroy(".ad-container-right-sidebar-160");
+            destroy(".ad-container-left-sidebar-120");
+            destroy(".ad-container-right-sidebar-120");
+        }
+
+        // Desktop: destroy mobile-only ads
+        if (w > 768) {
+            destroy(".ad-container-below-game-mobile");
+            destroy(".ad-container-below-grid-mobile");
+        }
+
+        // Mobile: destroy desktop banners
+        if (w <= 768) {
+            destroy(".ad-container-below-header");
+            destroy('.ad-container-top-banner');
+            destroy(".ad-container-below-game");
+        }
+
+        // --- Always push AdSense immediately (no blocking) ---
+        activateDefaultAds();
+
+        // --- China detection: async, non-blocking via CloudFlare /cdn-cgi/trace ---
+        // If user is Chinese, swap AdSense out for HilltopAds after detection.
+        // For 99%+ of visitors this fetch resolves with no action taken.
+        if (chinaEnabled) {
+            fetch('/cdn-cgi/trace').then(function(r) {
+                return r.text();
+            }).then(function(text) {
+                var match = text.match(/loc=(\w+)/);
+                if (match && match[1] === 'CN') {
+                    activateChinaAds();
+                }
+            }).catch(function() {});
+        }
+    })();
+    </script>
+    <script type="speculationrules">
+{"prefetch":[{"source":"document","where":{"and":[{"href_matches":"/*"},{"not":{"href_matches":["/wp-*.php","/wp-admin/*","/wp-content/uploads/*","/wp-content/*","/wp-content/plugins/*","/wp-content/themes/finaltheme/*","/*\\?(.+)"]}},{"not":{"selector_matches":"a[rel~=\"nofollow\"]"}},{"not":{"selector_matches":".no-prefetch, .no-prefetch a"}}]},"eagerness":"conservative"}]}
+</script>
+
+<!-- Powered by MyArcadePlugin Pro - http://myarcadeplugin.com -->
+    <!-- Mobile Edge Tab for Sidebar Toggle -->
+    <div id="mobile-sidebar-toggle" class="mobile-sidebar-toggle">
+        <svg class="toggle-arrow" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+        </svg>
+    </div>
+
+    <!-- Mobile Sidebar Overlay -->
+    <div id="mobile-sidebar-overlay" class="mobile-sidebar-overlay"></div>
+    <script id="wp-hooks-js" src="https://minigamesville.com/wp-includes/js/dist/hooks.min.js"></script>
+<script id="wp-i18n-js" src="https://minigamesville.com/wp-includes/js/dist/i18n.min.js"></script>
+<script id="wp-i18n-js-after">
+wp.i18n.setLocaleData( { 'text direction\u0004ltr': [ 'ltr' ] } );
+//# sourceURL=wp-i18n-js-after
+</script>
+<script id="swv-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/5124b485c5f100a8bb2084fa5f980ae8.js"></script>
+<script id="contact-form-7-js-before">
+var wpcf7 = {
+    "api": {
+        "root": "https:\/\/minigamesville.com\/wp-json\/",
+        "namespace": "contact-form-7\/v1"
+    }
+};
+//# sourceURL=contact-form-7-js-before
+</script>
+<script id="contact-form-7-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/a8f2be4c6c80d1f5f01601fe7d87f371.js"></script>
+<script id="jquery-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/bb654b4101c23fb9c09d71775350ef2d.js"></script>
+<script id="wp-postratings-js-extra">
+var ratingsL10n = {"plugin_url":"https://minigamesville.com/wp-content/plugins/wp-postratings","ajax_url":"https://minigamesville.com/wp-admin/admin-ajax.php","text_wait":"Please rate only 1 item at a time.","image":"stars","image_ext":"gif","max":"5","show_loading":"1","show_fading":"1","custom":"0"};
+var ratings_mouseover_image=new Image();ratings_mouseover_image.src="https://minigamesville.com/wp-content/plugins/wp-postratings/images/stars/rating_over.gif";;
+//# sourceURL=wp-postratings-js-extra
+</script>
+<script id="wp-postratings-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/47f186285b99baa217a6e08cb8584d66.js"></script>
+<script id="minigames-hybrid-main-js-extra">
+var minigamesHybrid = {"ajaxurl":"https://minigamesville.com/wp-admin/admin-ajax.php","nonce":"6fee8d6edb","homeUrl":"https://minigamesville.com/","currentLanguage":"en","translations":{"all_games_loaded":"All games loaded!"}};
+//# sourceURL=minigames-hybrid-main-js-extra
+</script>
+<script id="minigames-hybrid-main-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/f97b52924eae969a86b9255dc0c310cf.js"></script>
+<script id="minigames-hybrid-carousel-js-extra">
+var hybridThemeOptions = {"carousel_infinite_loop":"","carousel_scroll_amount":"3","carousel_show_dots":"","carousel_auto_scroll":"","carousel_scroll_speed":"normal","carousel_pause_hover":""};
+//# sourceURL=minigames-hybrid-carousel-js-extra
+</script>
+<script id="minigames-hybrid-carousel-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/b4cde361c9b7ea51d15825b32bce1629.js"></script>
+<script id="minigames-hybrid-header-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/c926a7904dd0e7c791c2429627477513.js"></script>
+<script id="minigames-hybrid-categories-horizontal-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/15358de919aa99c061cc19098e131081.js"></script>
+<script id="minigames-hybrid-sidebar-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/ab343af784e39d416f5dca5ff2c681b9.js"></script>
+<script id="googlesitekit-consent-mode-js" src="https://minigamesville.com/wp-content/plugins/google-site-kit/dist/assets/js/googlesitekit-consent-mode-755f1678e260138d789e.js"></script>
+<script id="wp-statistics-tracker-js-extra">
+var WP_Statistics_Tracker_Object = {"requestUrl":"https://minigamesville.com/wp-json/wp-statistics/v2","ajaxUrl":"https://minigamesville.com/wp-admin/admin-ajax.php","hitParams":{"wp_statistics_hit":1,"source_type":"404","source_id":0,"search_query":"","signature":"4df3a34d7616292f49b904ed163d7069","endpoint":"hit"},"option":{"dntEnabled":"","bypassAdBlockers":"","consentIntegration":{"name":null,"status":[]},"isPreview":false,"userOnline":false,"isWpConsentApiActive":false},"isLegacyEventLoaded":"","customEventAjaxUrl":"https://minigamesville.com/wp-admin/admin-ajax.php?action=wp_statistics_custom_event&nonce=22a8e2f69b","onlineParams":{"wp_statistics_hit":1,"source_type":"404","source_id":0,"search_query":"","signature":"4df3a34d7616292f49b904ed163d7069","action":"wp_statistics_online_check"},"jsCheckTime":"60000"};
+//# sourceURL=wp-statistics-tracker-js-extra
+</script>
+<script id="wp-statistics-tracker-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/413d7946b0d206cfae77281b097103e0.js"></script>
+<script id="googlesitekit-events-provider-contact-form-7-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/ac5f6ebcf9b4b2cbc336f815a68e991f.js"></script>
+<script id="googlesitekit-events-provider-content-events-js-before">
+window._googlesitekit = window._googlesitekit || {};
+window._googlesitekit.contentEvents = {"postID":0,"isSinglePost":false,"hasVimeoEmbed":false};
+//# sourceURL=googlesitekit-events-provider-content-events-js-before
+</script>
+<script id="googlesitekit-events-provider-content-events-js" src="https://minigamesville.com/wp-content/uploads/hummingbird-assets/de16cb002f6bd2c9b9be8dce7ca1011c.js"></script>
+<script id="smush-lazy-load-js-before">
+var smushLazyLoadOptions = {"autoResizingEnabled":false,"autoResizeOptions":{"precision":5,"skipAutoWidth":true}};
+//# sourceURL=smush-lazy-load-js-before
+</script>
+<script id="smush-lazy-load-js" src="https://minigamesville.com/wp-content/plugins/wp-smush-pro/app/assets/js/smush-lazy-load.min.js"></script>
+    <style type="text/css" id="sidebar-color-override">
+    /* Text colors for sidebar */
+    .onlinegames-vertical-sidebar .sidebar-link,
+    .sidebar-item .sidebar-link {
+        color: rgba(255, 255, 255, 0.8) !important;
+    }
+    
+    .onlinegames-vertical-sidebar .sidebar-link:hover,
+    .sidebar-item:hover .sidebar-link,
+    .sidebar-link:hover {
+        color: #ffffff !important;
+        background: rgba(255, 255, 255, 0.1) !important;
+    }
+    
+    /* Highlight color for active/selected category */
+    .sidebar-item.active .sidebar-link,
+    .onlinegames-vertical-sidebar .sidebar-item.active .sidebar-link {
+        color: #4f9eff !important;
+        border-left-color: #4f9eff !important;
+        background: rgba(79, 158, 255, 0.2) !important;
+    }
+    
+    .sidebar-item.active .sidebar-icon,
+    .onlinegames-vertical-sidebar .sidebar-item.active .sidebar-icon {
+        color: #4f9eff !important;
+        background: rgba(79, 158, 255, 0.3) !important;
+    }
+    </style>
+    
+<!-- Dynamic Load More Games Translation Fix -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get current language
+    const currentLang = 'en';
+    
+    // Translation map for Load More Games - cached from database
+    const loadMoreTranslations = {
+        'en': 'Load More Games',
+        'ar': 'تحميل المزيد من الألعاب',
+        'bg': 'Зареди още игри',
+        'bn': 'আরও গেম লোড করুন',
+        'cs': 'Načíst další hry',
+        'da': 'Indlæs flere spil',
+        'de': 'Mehr Spiele laden',
+        'el': 'Φόρτωσε περισσότερα παιχνίδια',
+        'es': 'Cargar más juegos',
+        'fa': 'بارگذاری بازی‌های بیشتر',
+        'fi': 'Lataa lisää pelejä',
+        'fr': 'Charger plus de jeux',
+        'hi': 'और गेम लोड करें',
+        'hr': 'Učitaj više igara',
+        'hu': 'Több játék betöltése',
+        'id': 'Muat lebih banyak game',
+        'it': 'Carica altri giochi',
+        'ja': 'もっとゲームを読み込む',
+        'ko': '더 많은 게임 불러오기',
+        'lt': 'Įkelti daugiau žaidimų',
+        'ms': 'Muat lebih banyak permainan',
+        'nl': 'Meer games laden',
+        'no': 'Last inn flere spill',
+        'pl': 'Załaduj więcej gier',
+        'pt': 'Carregar mais jogos',
+        'ro': 'Încarcă mai multe jocuri',
+        'ru': 'Загрузить ещё игры',
+        'sk': 'Načítať viac hier',
+        'sl': 'Naloži več iger',
+        'sq': 'Ngarko më shumë lojëra',
+        'sv': 'Ladda fler spel',
+        'th': 'โหลดเกมเพิ่มเติม',
+        'tr': 'Daha fazla oyun yükle',
+        'uk': 'Завантажити ще ігри',
+        'ur': 'مزید گیمز لوڈ کریں',
+        'vi': 'Tải thêm trò chơi',
+        'zh': '加载更多游戏',
+        'zu': 'Layisha eminye imidlalo',
+            };
+    
+    // Find all Load More buttons
+    const loadMoreButtons = document.querySelectorAll('.load-more-button');
+    
+    loadMoreButtons.forEach(button => {
+        // Check if button contains "Load More Games" text
+        if (button.textContent.trim() === 'Load More Games' || button.textContent.includes('Load More')) {
+            // Apply translation based on current language
+            if (loadMoreTranslations[currentLang]) {
+                button.textContent = loadMoreTranslations[currentLang];
+            }
+        }
+    });
+    
+    // Also handle dynamically loaded content
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.addedNodes.length) {
+                mutation.addedNodes.forEach(function(node) {
+                    if (node.nodeType === 1 && node.classList && node.classList.contains('load-more-button')) {
+                        if (node.textContent.trim() === 'Load More Games' && loadMoreTranslations[currentLang]) {
+                            node.textContent = loadMoreTranslations[currentLang];
+                        }
+                    }
+                });
+            }
+        });
+    });
+    
+    // Start observing
+    observer.observe(document.body, { childList: true, subtree: true });
+});
+</script>
+
+<!-- Dynamic Search Placeholder Translation Fix -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Get current language
+    const currentLang = 'en';
+    
+    // Translation map for Search placeholder - cached from database
+    const searchTranslations = {
+        'en': 'Search games...',
+        'ar': 'البحث عن ألعاب...',
+        'bg': 'Търси игри...',
+        'bn': 'গেম খুঁজুন...',
+        'cs': 'Hledat hry...',
+        'da': 'Søg efter spil...',
+        'de': 'Spiele suchen...',
+        'el': 'Αναζήτηση παιχνιδιών...',
+        'es': 'Buscar juegos...',
+        'fa': 'جستجوی بازی...',
+        'fi': 'Hae pelejä...',
+        'fr': 'Rechercher des jeux...',
+        'hi': 'गेम खोजें...',
+        'hr': 'Pretraži igre...',
+        'hu': 'Játékok keresése...',
+        'id': 'Cari game...',
+        'it': 'Cerca giochi...',
+        'ja': 'ゲームを検索...',
+        'ko': '게임 검색...',
+        'lt': 'Ieškoti žaidimų...',
+        'ms': 'Cari permainan...',
+        'nl': 'Games zoeken...',
+        'no': 'Søk etter spill...',
+        'pl': 'Szukaj gier...',
+        'pt': 'Buscar jogos...',
+        'ro': 'Caută jocuri...',
+        'ru': 'Поиск игр...',
+        'sk': 'Hľadať hry...',
+        'sl': 'Išči igre...',
+        'sq': 'Kërko lojëra...',
+        'sv': 'Sök spel...',
+        'th': 'ค้นหาเกม...',
+        'tr': 'Oyun ara...',
+        'uk': 'Шукати ігри...',
+        'ur': '...گیمز تلاش کریں',
+        'vi': 'Tìm trò chơi...',
+        'zh': '搜索游戏...',
+        'zu': 'Sesha imidlalo...',
+            };
+    
+    // Find all search inputs
+    const searchInputs = document.querySelectorAll('input[type="search"]');
+    
+    searchInputs.forEach(input => {
+        // Apply translation based on current language
+        if (searchTranslations[currentLang]) {
+            input.placeholder = searchTranslations[currentLang];
+        }
+    });
+    
+    // Also handle mobile search if it exists
+    const mobileSearchInputs = document.querySelectorAll('#mobile-search-input, .mobile-search-input');
+    mobileSearchInputs.forEach(input => {
+        if (searchTranslations[currentLang]) {
+            input.placeholder = searchTranslations[currentLang];
+        }
+    });
+});
+</script>
+
+<!-- Scroll to top button -->
+<button id="scroll-to-top" class="fixed bottom-6 right-6 bg-accent-primary text-white p-3 rounded-full shadow-game opacity-0 transition-all duration-300 hover:bg-accent-primary/80 z-40" title="Scroll to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M12 4l8 8h-6v8h-4v-8H4l8-8z"/>
+    </svg>
+</button>
+
+<script>
+// Combined JavaScript for header effects and mobile menu
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.getElementById('site-header');
+    const scrollToTop = document.getElementById('scroll-to-top');
+    
+    // Mobile menu elements
+    const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
+    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuClose = document.getElementById('mobile-menu-close');
+    
+    let lastScrollTop = 0;
+    
+    // Header scroll effect
+    window.addEventListener('scroll', function() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Add scrolled class when scrolled down
+        if (scrollTop > 50) {
+            header.classList.add('scrolled');
+            scrollToTop.style.opacity = '1';
+            scrollToTop.style.visibility = 'visible';
+        } else {
+            header.classList.remove('scrolled');
+            scrollToTop.style.opacity = '0';
+            scrollToTop.style.visibility = 'hidden';
+        }
+        
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    });
+    
+    // Scroll to top functionality
+    scrollToTop.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+    
+    // Mobile Menu Toggle
+    function toggleMobileMenu() {
+        const isOpen = mobileMenuOverlay.style.display !== 'none';
+        
+        if (isOpen) {
+            mobileMenu.style.transform = 'translateX(-100%)';
+            setTimeout(() => {
+                mobileMenuOverlay.style.display = 'none';
+            }, 300);
+        } else {
+            mobileMenuOverlay.style.display = 'block';
+            setTimeout(() => {
+                mobileMenu.style.transform = 'translateX(0)';
+            }, 10);
+        }
+    }
+
+    // Mobile menu event listeners
+    if (mobileMenuToggle) {
+        mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+    }
+
+    if (mobileMenuClose) {
+        mobileMenuClose.addEventListener('click', toggleMobileMenu);
+    }
+
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', function(e) {
+            if (e.target === mobileMenuOverlay) {
+                toggleMobileMenu();
+            }
+        });
+    }
+
+    // Hide mobile menu on desktop
+    function handleResize() {
+        if (window.innerWidth >= 768) {
+            if (mobileMenuOverlay && mobileMenuOverlay.style.display !== 'none') {
+                toggleMobileMenu();
+            }
+        }
+    }
+
+    window.addEventListener('resize', handleResize);
+});
+</script>
+
+</body>
+</html></body>
+</html>
+<!-- Performance optimized by Redis Object Cache. Learn more: https://wprediscache.com -->
